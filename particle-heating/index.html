@@ -214,4 +214,5 @@ $('resetBtn').addEventListener('click',()=>{assign(DEFAULT);$('inferResult').tex
 $('inferBtn').addEventListener('click',()=>{if(raf){cancelAnimationFrame(raf);raf=0;}update();let o=values(),t=o.measuredT;let result=inverseK(o,t);lastFit=null;$('applyFit').disabled=true;if(result.error){$('inferResult').textContent=result.error;return;}lastFit=result.k;$('applyFit').disabled=false;let alpha=4*PI*result.k/(o.lam1*1e-9)/100;$('inferResult').textContent='Inferred NIR k ≈ '+format(result.k,6)+'; bulk-equivalent absorption coefficient ≈ '+format(alpha,5)+' cm⁻¹ (within Rayleigh and selected cooling model). A single temperature cannot independently determine k and IR loss.';});
 $('applyFit').addEventListener('click',()=>{if(lastFit===null)return;const o=values();$('k1').value=String(lastFit);$('alpha1').value=String(kToAlpha(lastFit,o.alphaUnit1,o.lam1));update();$('message').textContent='Applied fitted NIR absorption (k and equivalent α). Save JSON to retain the fitted parameter.';});
 assign(DEFAULT);
-</script></body></html>
+</script><script src="./particle-compare.js"></script>
+</body></html>
