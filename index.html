@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a101c">
+<meta name="description" content="Interactive simulations for levitated-particle physics, optical tweezers, and RF traps.">
+<title>Levitated Physics Lab · Simulations</title>
+<style>
+  :root { color-scheme: dark; --bg:#090e19; --panel:#111b2c; --panel2:#0d1727; --line:#26364d; --text:#eef5ff; --muted:#a0b1c8; --accent:#73e8d1; --accent2:#a6a4ff; --warm:#ffc37a; --radius:16px; --shadow:0 20px 70px #00000033; font-family: Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+  * {box-sizing:border-box}
+  html { scroll-behavior:smooth }
+  body { min-width:320px; margin:0; color:var(--text); background:radial-gradient(ellipse 64% 30% at 86% -6%,#1d3153 0,transparent 74%),radial-gradient(ellipse 55% 30% at -16% 9%,#123b3b 0,transparent 77%),var(--bg); line-height:1.5; }
+  button,select {font:inherit}
+  button,a,select { -webkit-tap-highlight-color:transparent }
+  button:focus-visible,a:focus-visible,select:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+  .page { max-width:1680px; padding:24px clamp(15px,3vw,44px) 32px; margin:0 auto; }
+  .topbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px; padding-bottom:20px; }
+  .brand {display:flex; align-items:center; gap:15px; min-width:0}
+  .brand-symbol {flex:none; width:51px;height:51px;border:1px solid #467786;border-radius:16px;background:linear-gradient(140deg,#174452,#192144);color:var(--accent);display:grid;place-items:center;box-shadow:0 0 35px #4ce8c623}
+  .brand-symbol svg {height:30px;width:30px}
+  .eyebrow {color:var(--accent);letter-spacing:.18em;text-transform:uppercase;font-weight:800;font-size:10px}
+  .brand-name {font-size:clamp(19px,2.2vw,25px);font-weight:790;letter-spacing:-.045em;line-height:1.2;margin-top:3px}
+  .top-meta {display:flex;align-items:center;gap:11px;color:var(--muted);font-size:12px}
+  .top-meta .dot {width:7px;height:7px;box-shadow:0 0 0 4px #73e8d116;background:var(--accent);border-radius:100%}
+  .nav-wrap {border:1px solid var(--line);background:#0e1828c9;border-radius:13px;padding:6px;display:flex;gap:5px;align-items:center;overflow-x:auto;scrollbar-width:thin;}
+  .nav-item {background:transparent;color:#b1c1d6;border:0;border-radius:9px;padding:11px 17px;font-weight:720;font-size:12px;white-space:nowrap;display:flex;align-items:center;gap:9px;cursor:pointer;transition:background .15s,color .15s}
+  .nav-item:hover:not(:disabled) {background:#1c2d42;color:var(--text)}
+  .nav-item.active {color:#081b24;background:var(--accent);box-shadow:0 2px 14px #73e8d11a}
+  .nav-item:disabled {opacity:.44;cursor:not-allowed}
+  .small-chip {font-size:9px;letter-spacing:.05em;border:1px solid currentColor;border-radius:5px;padding:2px 5px;opacity:.78}
+  .welcome {display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,.8fr);gap:18px;margin-top:22px}
+  .welcome-hero {border:1px solid #31536b;border-radius:var(--radius);padding:clamp(22px,3vw,38px);background:linear-gradient(112deg,#153c49,#151f37 70%,#1c2945);min-height:275px;position:relative;overflow:hidden}
+  .welcome-hero:after {content:"";position:absolute;width:240px;height:240px;right:-50px;top:10px;border:1px solid #73e8d12b;border-radius:50%;box-shadow:0 0 0 38px #73e8d10c,0 0 0 76px #b2adff08;pointer-events:none}
+  .welcome-hero h1 {font-size:clamp(27px,4vw,43px);line-height:1.13;margin:16px 0 13px;max-width:680px;letter-spacing:-.05em;position:relative;z-index:1}
+  .welcome-hero p {max-width:600px;font-size:14px;color:#c5d4e6;margin:0 0 23px;line-height:1.7;position:relative;z-index:1}
+  .kicker {font-size:10px;color:var(--accent);text-transform:uppercase;font-weight:800;letter-spacing:.15em}
+  .button {text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #39536d;background:#1c2e45;color:var(--text);padding:10px 15px;border-radius:9px;font-size:12px;font-weight:760;cursor:pointer;min-height:39px;transition:.15s}
+  .button:hover {border-color:var(--accent);background:#25445b}
+  .button.primary {background:var(--accent);border-color:var(--accent);color:#0b2229}
+  .button.primary:hover {background:#a7ffec}
+  .button svg {width:15px;height:15px}
+  .stats-card {padding:26px;border:1px solid #2d4259;background:linear-gradient(155deg,#152337,#101827);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;gap:17px}
+  .stats-header {font-size:11px;font-weight:790;letter-spacing:.12em;text-transform:uppercase;color:#a9bcd4}
+  .stat {display:flex;align-items:baseline;justify-content:space-between;gap:15px;border-top:1px solid #2d3e54;padding-top:13px}
+  .stat span {font-size:12px;color:#99acc4}
+  .stat b {font-size:19px;letter-spacing:-.03em}
+  .section-head {margin:28px 0 13px;display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}
+  .section-head h2 {font-size:16px;letter-spacing:-.015em;margin:0}
+  .section-head p {font-size:12px;color:var(--muted);margin:0}
+  .catalog {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+  .tool-card {border:1px solid #2c4056;border-radius:var(--radius);background:linear-gradient(157deg,#142238,#0e1828);padding:23px;min-height:253px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 13px 36px #0000001c}
+  .tool-card.ready {border-color:#376778}
+  .tool-card:before {content:"";width:90px;height:90px;position:absolute;right:-20px;top:-24px;border:1px solid #70e6d222;border-radius:50%;box-shadow:0 0 0 19px #70e6d208}
+  .card-icon {display:grid;place-items:center;width:43px;height:43px;border-radius:12px;background:#1d3d4a;color:var(--accent);font-size:22px;font-weight:500;margin-bottom:17px}
+  .tool-card:not(.ready) .card-icon {background:#292c48;color:var(--accent2)}
+  .card-label {font-size:10px;font-weight:780;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+  .tool-card:not(.ready) .card-label {color:#a8a6e6}
+  .tool-card h3 {font-size:17px;letter-spacing:-.03em;margin:0 0 8px}
+  .tool-card p {font-size:12px;color:#a8b9ce;line-height:1.65;margin:0 0 15px;flex:1}
+  .tool-card .button {align-self:flex-start}
+  .empty-action {font-size:11px;color:#8298b5}
+  .help {color:#9daec4;font-size:12px;padding:20px 3px 0}
+  .help details {border:1px solid var(--line);padding:15px 18px;border-radius:10px;background:#0e1929}
+  .help summary {cursor:pointer;font-weight:710;color:#c8d7e8}
+  .help p {margin:12px 0 0;line-height:1.75}
+  .help code {font:11px ui-monospace,SFMono-Regular,Consolas,monospace;background:#17263b;border:1px solid #30415a;color:var(--accent);padding:2px 5px;border-radius:4px}
+  .viewer {margin-top:22px}
+  .viewer-head {padding:22px 23px;border:1px solid #33556c;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(105deg,#153745,#171e38);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  .viewer-head h1 {margin:5px 0 7px;font-size:clamp(19px,2.6vw,28px);letter-spacing:-.04em}
+  .viewer-head p {color:#bdcde0;font-size:12px;max-width:720px;line-height:1.6;margin:0}
+  .viewer-controls {display:flex;gap:9px;align-items:end;flex-wrap:wrap}
+  .select-field {display:flex;flex-direction:column;gap:6px;font-size:10px;color:#acc0d4;font-weight:790;text-transform:uppercase;letter-spacing:.08em}
+  .select-field select {background:#0c192b;border:1px solid #3a566e;color:var(--text);padding:10px 30px 10px 10px;border-radius:9px;min-height:39px;font-size:12px;font-weight:650;text-transform:none;letter-spacing:0;max-width:245px}
+  .viewer-stage {background:#090e19;border:1px solid #2a3e54;border-top:0;border-radius:0 0 var(--radius) var(--radius);min-height:480px;overflow:hidden;position:relative}
+  .loading {padding:24px;color:#90a9c2;font-size:12px;display:flex;align-items:center;gap:10px}
+  .spinner {display:inline-block;border:2px solid #35656d;border-top-color:var(--accent);width:16px;height:16px;border-radius:50%;animation:spin .7s linear infinite}
+  @keyframes spin {to{transform:rotate(360deg)}}
+  .frame-holder[hidden] {display:none !important}
+  .frame-holder {background:#090e19}
+  .app-frame {width:100%;height:1500px;border:0;background:#090e19;display:block}
+  .missing {padding:25px;background:#342822;color:#ffd5b7;font-size:12px;border-top:1px solid #8a5941}
+  .missing code {color:white}
+  .frame-note {display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#8498b0;font-size:11px;margin-top:12px;padding:0 3px}
+  .footer {display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;color:#8195ad;border-top:1px solid #26374e;margin-top:28px;padding-top:18px;font-size:11px}
+  .toast {position:fixed;right:20px;bottom:20px;border:1px solid #457d79;background:#152d39;color:#dffcf5;box-shadow:var(--shadow);padding:12px 18px;border-radius:9px;font-size:12px;pointer-events:none;opacity:0;transform:translateY(15px);transition:opacity .2s,transform .2s;z-index:20}
+  .toast.visible {opacity:1;transform:translateY(0)}
+  [hidden] {display:none !important}
+  @media(max-width:1050px) {.catalog {grid-template-columns:repeat(2,minmax(0,1fr))}.welcome {grid-template-columns:1fr}.stats-card {display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stats-header{grid-column:1/-1}.stat{display:block}.stat b{display:block;margin-top:6px}}
+  @media(max-width:680px) {.page{padding:16px 12px 23px}.topbar{padding-bottom:14px}.brand-symbol{width:43px;height:43px}.top-meta{display:none}.nav-item{padding:9px 11px;font-size:11px}.welcome-hero{min-height:0}.welcome-hero:after{opacity:.4}.stats-card{grid-template-columns:repeat(2,1fr)}.catalog{grid-template-columns:1fr}.tool-card{min-height:230px}.viewer-head{padding:18px 15px}.viewer-controls{width:100%}.select-field{width:100%}.select-field select{width:100%;max-width:none}.viewer-controls .button{flex:1}.frame-note{font-size:10px}}
+  @media(prefers-reduced-motion:reduce){*,*:before,*:after {scroll-behavior:auto !important;transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-symbol" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="20" cy="20" r="4.5" fill="currentColor" stroke="none" />
+          <ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(35 20 20)" />
+          <ellipse cx="20" cy="20" rx="17" ry="8" transform="rotate(-35 20 20)" />
+          <circle cx="34" cy="12" r="2.1" fill="currentColor" stroke="none" />
+        </svg>
+      </div>
+      <div><div class="eyebrow">Interactive scientific tools</div><div class="brand-name">Levitated Physics Lab</div></div>
+    </div>
+    <div class="top-meta"><span class="dot"></span><span>Browser-based · No installation</span></div>
+  </header>
+
+  <nav id="navigation" class="nav-wrap" aria-label="Simulation navigation"></nav>
+
+  <main>
+    <section id="home" class="home">
+      <div class="welcome">
+        <div class="welcome-hero">
+          <div class="kicker">Simulation workspace</div>
+          <h1>Explore the physics.<br>Change the parameters.</h1>
+          <p>Interactive models for levitated particles, RF confinement and optical trapping. Every simulation runs directly in your browser, with independent versions you can revisit.</p>
+          <button type="button" id="launchPrimary" class="button primary">Open Paul + Tweezer <span aria-hidden="true">↗</span></button>
+        </div>
+        <div class="stats-card">
+          <div class="stats-header">Workspace</div>
+          <div class="stat"><span>Available simulations</span><b id="countActive">1</b></div>
+          <div class="stat"><span>Saved versions</span><b id="countVersions">1</b></div>
+          <div class="stat"><span>Hosting</span><b style="font-size:14px">GitHub Pages</b></div>
+        </div>
+      </div>
+      <div class="section-head"><h2>Simulations</h2><p>Choose a model to begin</p></div>
+      <div id="catalog" class="catalog"></div>
+      <div class="help">
+        <details>
+          <summary>How do I add another simulation or an older version?</summary>
+          <p>Upload the new standalone HTML file to the repository and add its relative filename to the <code>SIMULATIONS</code> configuration near the bottom of this <code>index.html</code>. For another version of an existing tool, just add one entry to its <code>versions</code> array. No server, framework, or build step is needed.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="viewer" class="viewer" hidden aria-label="Simulator">
+      <div class="viewer-head">
+        <div>
+          <div class="kicker">Interactive simulator · <span id="viewerStatus">Ready</span></div>
+          <h1 id="viewerTitle">Paul Trap + Optical Tweezer</h1>
+          <p id="viewerDescription">Hybrid and optical trapping simulator.</p>
+        </div>
+        <div class="viewer-controls">
+          <label class="select-field">Version
+            <select id="versionSelect" aria-label="Select simulator version"></select>
+          </label>
+          <a id="openStandalone" class="button" href="./paul-tweezer/index.html" target="_blank" rel="noopener">Open standalone ↗</a>
+          <button type="button" id="copyLink" class="button" title="Copy a link to this simulator and version">Copy link</button>
+        </div>
+      </div>
+      <div class="viewer-stage" id="viewerStage">
+        <div id="loading" class="loading"><span class="spinner" aria-hidden="true"></span> Opening simulation…</div>
+      </div>
+      <div class="frame-note">
+        <span>Simulations run locally in your browser. Changes to parameters are not sent to a server.</span>
+        <span>For the most screen space, use “Open standalone”.</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><span>Levitated Physics Lab · Scientific exploration and visualization</span><span>Check model assumptions before drawing experimental conclusions.</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+/* =============================================================
+   EDIT THIS LIST TO MANAGE ALL YOUR SIMULATORS AND VERSIONS.
+
+   The current Paul + Tweezer HTML is assumed to be in the SAME
+   GitHub repository folder as index.html, named:
+     paul-tweezer/index.html
+
+   To add a version, append another { id, label, file } object.
+   To enable another simulator, add a version to its versions: [].
+
+   File paths are RELATIVE TO THIS index.html. For example:
+     file: 'paul-tweezer/versions/v1.html'
+   ============================================================= */
+const SIMULATIONS = [
+  {
+    id: 'paul-tweezer',
+    name: 'Paul Trap + Optical Tweezer',
+    shortName: 'Paul + Tweezer',
+    description: 'Explore hybrid frequencies, infer Paul-only and optical contributions, and compare radial/axial optical-trap depth against particle temperature.',
+    icon: '◎',
+    versions: [
+      { id: 'current', label: 'Current · Optical depth', file: 'paul-tweezer/index.html' }
+      // Example: { id: 'v1', label: 'v1 · Original', file: 'paul-tweezer/versions/v1.html' },
+    ]
+  },
+  {
+    id: 'diamagnetic',
+    name: 'Diamagnetic Trap',
+    shortName: 'Diamagnetic',
+    description: 'A placeholder for a future diamagnetic-levitation model. Upload its HTML and add the path here when ready.',
+    icon: '◇',
+    versions: []
+  },
+  {
+    id: 'cooling',
+    name: 'Feedback & Cooling',
+    shortName: 'Cooling',
+    description: 'A placeholder for a future motional-cooling simulator, from damping and PSDs to final temperature.',
+    icon: '◌',
+    versions: []
+  }
+];
+
+const $ = id => document.getElementById(id);
+const frameCache = new Map();
+let currentSelection = '';
+let toastTimer;
+const available = s => s.versions.length > 0;
+function getVersion(sim, id) { return sim.versions.find(v => v.id === id) || sim.versions[0]; }
+function routeHash(id, versionId) { return '#' + encodeURIComponent(id) + (versionId ? '/' + encodeURIComponent(versionId) : ''); }
+function navigate(id, versionId) {
+  const next = routeHash(id, versionId);
+  if (location.hash === next) applyRoute(); else location.hash = next;
+}
+function readRoute() {
+  const parts = location.hash.slice(1).split('/');
+  let id = 'home', versionId = '';
+  try { id = decodeURIComponent(parts[0] || 'home'); versionId = decodeURIComponent(parts[1] || ''); } catch (_e) { return { id:'home',versionId:'' }; }
+  const sim = SIMULATIONS.find(s => s.id === id && available(s));
+  return sim ? { id, versionId } : { id:'home', versionId:'' };
+}
+function makeButton(cls,text,onClick) {
+  const b = document.createElement('button'); b.type = 'button'; b.className = cls; b.textContent = text; b.addEventListener('click',onClick); return b;
+}
+function renderNavigation(activeId) {
+  const nav = $('navigation'); nav.replaceChildren();
+  const home = makeButton('nav-item' + (activeId === 'home' ? ' active' : ''),'⌂  Overview',() => navigate('home'));
+  if (activeId === 'home') home.setAttribute('aria-current','page');
+  nav.appendChild(home);
+  SIMULATIONS.forEach(sim => {
+    const b = makeButton('nav-item' + (activeId === sim.id ? ' active' : ''),sim.shortName,() => navigate(sim.id));
+    if (activeId === sim.id) b.setAttribute('aria-current','page');
+    if (!available(sim)) {
+      b.disabled = true;
+      const tag = document.createElement('span'); tag.className = 'small-chip'; tag.textContent = 'SOON'; b.appendChild(tag);
+    }
+    nav.appendChild(b);
+  });
+}
+function renderCatalog() {
+  const catalog = $('catalog'); catalog.replaceChildren();
+  SIMULATIONS.forEach(sim => {
+    const ready = available(sim);
+    const card = document.createElement('article'); card.className = 'tool-card' + (ready ? ' ready' : '');
+    const icon = document.createElement('div'); icon.className = 'card-icon'; icon.textContent = sim.icon; icon.setAttribute('aria-hidden','true');
+    const label = document.createElement('div'); label.className = 'card-label'; label.textContent = ready ? 'Interactive · Ready' : 'Not added yet';
+    const heading = document.createElement('h3'); heading.textContent = sim.name;
+    const desc = document.createElement('p'); desc.textContent = sim.description;
+    card.append(icon,label,heading,desc);
+    if (ready) card.appendChild(makeButton('button primary','Launch simulator →',() => navigate(sim.id)));
+    else { const note=document.createElement('span');note.className='empty-action';note.textContent='Upload an HTML file to activate this tab';card.appendChild(note); }
+    catalog.appendChild(card);
+  });
+  $('countActive').textContent = SIMULATIONS.filter(available).length;
+  $('countVersions').textContent = SIMULATIONS.reduce((sum,s) => sum + s.versions.length,0);
+  const first = SIMULATIONS.find(available);
+  $('launchPrimary').disabled = !first;
+  $('launchPrimary').onclick = () => first && navigate(first.id);
+  if (first) $('launchPrimary').textContent = 'Open ' + first.shortName + '  ↗';
+}
+function showToast(message) {
+  const toast = $('toast'); toast.textContent = message;toast.classList.add('visible');
+  clearTimeout(toastTimer);toastTimer=setTimeout(() => toast.classList.remove('visible'),2700);
+}
+function fitFrame(frame) {
+  // GitHub Pages serves both documents from the same origin; adjust the
+  // iframe to its content to avoid nested scrolling. A fixed-height
+  // fallback remains available for local file:// previews.
+  try {
+    const doc = frame.contentDocument;
+    if (!doc || !doc.body) return;
+    // Use the body's content height, not the documentElement's viewport
+    // height (which can otherwise grow on every resize).
+    const height = Math.max(960, doc.body.scrollHeight, doc.body.offsetHeight);
+    frame.style.height = Math.min(height,20000) + 'px';
+  } catch (_e) { /* Cross-origin: keep the 1500 px scrolling iframe. */ }
+}
+function showFrame(sim,version) {
+  const key = sim.id + '/' + version.id;
+  const stage = $('viewerStage');
+  for (const [cacheKey,entry] of frameCache) {
+    entry.container.hidden = cacheKey !== key;
+  }
+  $('loading').hidden = frameCache.has(key);
+  if (frameCache.has(key)) {
+    requestAnimationFrame(() => fitFrame(frameCache.get(key).frame));
+    return;
+  }
+  const holder = document.createElement('div'); holder.className = 'frame-holder';
+  const frame = document.createElement('iframe');frame.className = 'app-frame';
+  frame.title = sim.name + ' — ' + version.label;
+  frame.loading = 'eager'; frame.referrerPolicy = 'same-origin';
+  const url = new URL(version.file,document.baseURI);
+  frame.src = url.href;
+  frame.addEventListener('load',() => {
+    $('loading').hidden = true;
+    fitFrame(frame);
+    try {
+      const doc = frame.contentDocument;
+      if (doc && doc.body && typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(() => fitFrame(frame));
+        ro.observe(doc.body);
+      }
+    } catch (_e) { /* Not needed for rendering. */ }
+  });
+  holder.appendChild(frame);stage.appendChild(holder);
+  frameCache.set(key,{container:holder,frame});
+  // GitHub Pages: show a helpful filename/path error if the target is missing.
+  if (location.protocol === 'http:' || location.protocol === 'https:') {
+    fetch(url.href,{method:'HEAD'}).then(response => {
+      if (response.status === 404) {
+        const notice = document.createElement('div');notice.className = 'missing';
+        notice.append('Simulator file not found: ');
+        const code=document.createElement('code');code.textContent=version.file;notice.append(code);
+        notice.append('. Make sure the HTML filename (including CAPITAL letters) and folder match the SIMULATIONS configuration in index.html.');
+        holder.prepend(notice);
+      }
+    }).catch(() => { /* Offline/local preview: no check needed. */ });
+  }
+}
+function applyRoute() {
+  const {id,versionId} = readRoute();
+  renderNavigation(id);
+  const isHome = id === 'home';
+  $('home').hidden = !isHome;$('viewer').hidden = isHome;
+  if (isHome) {document.title = 'Levitated Physics Lab · Simulations';return;}
+  const sim = SIMULATIONS.find(s => s.id === id);
+  const version = getVersion(sim,versionId);
+  $('viewerTitle').textContent = sim.name;
+  $('viewerDescription').textContent = sim.description;
+  $('viewerStatus').textContent = sim.versions.length > 1 ? sim.versions.length + ' versions' : 'Current model';
+  const select = $('versionSelect'); select.replaceChildren();
+  sim.versions.forEach(v => {const option=document.createElement('option');option.value=v.id;option.textContent=v.label;select.appendChild(option);});
+  select.value = version.id;
+  select.disabled = sim.versions.length === 1;
+  $('openStandalone').href = new URL(version.file,document.baseURI).href;
+  const key = sim.id + '/' + version.id;
+  showFrame(sim,version);
+  if (currentSelection !== key) {
+    currentSelection = key;
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  document.title = sim.name + ' · Levitated Physics Lab';
+}
+$('versionSelect').addEventListener('change',event => {
+  const {id} = readRoute(); navigate(id,event.target.value);
+});
+$('copyLink').addEventListener('click',async () => {
+  const {id,versionId} = readRoute();const sim = SIMULATIONS.find(s => s.id === id);
+  const version = getVersion(sim,versionId);
+  const link = new URL(location.href);link.hash = routeHash(id,version.id);
+  try {
+    await navigator.clipboard.writeText(link.href);
+    showToast('Direct link copied');
+  } catch (_e) {
+    showToast('Could not copy automatically — use the browser address bar');
+  }
+});
+window.addEventListener('hashchange',applyRoute);
+window.addEventListener('resize',() => {
+  const active = frameCache.get(currentSelection);
+  if (active && !active.container.hidden) requestAnimationFrame(() => fitFrame(active.frame));
+});
+renderCatalog();applyRoute();
+</script>
+</body>
+</html>
+
