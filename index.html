@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -66,6 +66,16 @@
   .help p {margin:12px 0 0;line-height:1.75}
   .help code {font:11px ui-monospace,SFMono-Regular,Consolas,monospace;background:#17263b;border:1px solid #30415a;color:var(--accent);padding:2px 5px;border-radius:4px}
   .viewer {margin-top:22px}
+  /* On simulator tabs, the embedded app gets exactly the same usable
+     document width as when its HTML is opened on its own. */
+  .page.sim-active {max-width:none; padding:18px 0 30px}
+  .page.sim-active > .topbar {padding-inline:clamp(12px,2vw,32px)}
+  .page.sim-active > .nav-wrap {margin-inline:clamp(12px,2vw,32px)}
+  .page.sim-active .viewer {margin-top:16px}
+  .page.sim-active .viewer-head {border-radius:0}
+  .page.sim-active .viewer-stage {border-left:0; border-right:0; border-radius:0}
+  .page.sim-active .frame-note,
+  .page.sim-active > .footer {margin-inline:clamp(12px,2vw,32px)}
   .viewer-head {padding:22px 23px;border:1px solid #33556c;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(105deg,#153745,#171e38);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
   .viewer-head h1 {margin:5px 0 7px;font-size:clamp(19px,2.6vw,28px);letter-spacing:-.04em}
   .viewer-head p {color:#bdcde0;font-size:12px;max-width:720px;line-height:1.6;margin:0}
@@ -156,7 +166,7 @@
       </div>
       <div class="frame-note">
         <span>Simulations run locally in your browser. Changes to parameters are not sent to a server.</span>
-        <span>For the most screen space, use “Open standalone”.</span>
+        <span>The embedded simulator uses the same width as its standalone page.</span>
       </div>
     </section>
   </main>
@@ -171,8 +181,7 @@
 /* =============================================================
    EDIT THIS LIST TO MANAGE ALL YOUR SIMULATORS AND VERSIONS.
 
-   The current Paul + Tweezer HTML is assumed to be in the SAME
-   GitHub repository folder as index.html, named:
+   Paul + Tweezer is now stored in its own subfolder:
      paul-tweezer/index.html
 
    To add a version, append another { id, label, file } object.
@@ -333,6 +342,7 @@ function applyRoute() {
   renderNavigation(id);
   const isHome = id === 'home';
   $('home').hidden = !isHome;$('viewer').hidden = isHome;
+  document.querySelector('.page').classList.toggle('sim-active', !isHome);
   if (isHome) {document.title = 'Levitated Physics Lab · Simulations';return;}
   const sim = SIMULATIONS.find(s => s.id === id);
   const version = getVersion(sim,versionId);
@@ -375,4 +385,3 @@ renderCatalog();applyRoute();
 </script>
 </body>
 </html>
-
