@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hybrid Trap Lab · Forward & Inverse Paul + Optical Tweezer</title>
+<style>
+:root{color-scheme:dark;--bg:#090e19;--panel:#111b2c;--panel2:#0d1727;--line:#25344b;--muted:#9aaac2;--text:#eef5ff;--a:#73e8d1;--b:#a6a4ff;--c:#ffc37a;--red:#ff857e;--font:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -10%,#203357 0,transparent 48%),radial-gradient(ellipse at 0 10%,#143437 0,transparent 32%),var(--bg);color:var(--text);font-family:var(--font);font-size:14px}
+button,input,select{font:inherit}button{cursor:pointer}.shell{max-width:1540px;margin:0 auto;padding:28px 26px 42px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:26px}.brand{display:flex;align-items:center;gap:14px}.emblem{width:46px;height:46px;border:1px solid #3f6673;border-radius:15px;background:linear-gradient(135deg,#153347,#171d39);display:grid;place-items:center;color:var(--a);box-shadow:0 0 30px #40daca1a}.eyebrow{color:var(--a);font-size:11px;text-transform:uppercase;letter-spacing:.19em;font-weight:800}.brand h1{margin:3px 0 0;font-size:23px;letter-spacing:-.04em;font-weight:780}.subtitle{margin:0;color:#b5c4d8;max-width:720px;line-height:1.55}.top-actions{display:flex;gap:9px;flex-wrap:wrap}.btn{background:#17263a;color:var(--text);border:1px solid #31445f;border-radius:9px;padding:10px 13px;font-size:12px;font-weight:700;transition:.14s}.btn:hover{border-color:var(--a);background:#1b3148}.btn.primary{background:var(--a);color:#07151c;border-color:var(--a)}.grid{display:grid;grid-template-columns:335px minmax(0,1fr);gap:18px;align-items:start}.sidebar{display:flex;flex-direction:column;gap:14px}.panel{background:linear-gradient(165deg,#142035e8,#101929ec);border:1px solid #2b3b51;border-radius:16px;box-shadow:0 16px 46px #00000022;overflow:hidden}.panel-inner{padding:20px}.panel-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}.section-name{font-size:12px;font-weight:800;letter-spacing:.11em;color:#aebdd2;text-transform:uppercase}.pill{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:5px 8px;background:#203a42;color:var(--a)}.pill.off{color:#b0bed2;background:#222b3a}.pill.warn{background:#473623;color:var(--c)}.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#102539;border:1px solid #26595c;padding:14px 14px;border-radius:11px;margin-bottom:17px}.toggle-row strong{display:block;font-size:14px}.subtext{font-size:11px;color:var(--muted);margin-top:5px}.switch{position:relative;display:block;width:49px;height:27px;flex-shrink:0}.switch input{opacity:0;position:absolute}.switch .track{position:absolute;inset:0;background:#465165;border-radius:50px;transition:.2s}.switch .track:after{content:"";position:absolute;background:white;width:21px;height:21px;left:3px;top:3px;border-radius:50%;transition:.2s}.switch input:checked+.track{background:#50c7b6}.switch input:checked+.track:after{transform:translateX(22px)}.field{margin-bottom:17px}.field:last-child{margin-bottom:0}.field-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.field label{color:#bdcbe0;font-size:12px;font-weight:650}.number-wrap{display:flex;align-items:center;gap:5px;border:1px solid #364862;background:#0a1526;border-radius:7px;padding:5px 7px;min-width:99px;justify-content:flex-end}.number-wrap input{width:70px;min-width:0;border:none;background:transparent;color:var(--text);outline:0;text-align:right;font-size:12px;font-weight:750;appearance:textfield}.number-wrap span{color:#9bacc4;font-size:11px;white-space:nowrap}.number-wrap input::-webkit-outer-spin-button,.number-wrap input::-webkit-inner-spin-button{appearance:none;margin:0}input[type=range]{width:100%;height:5px;appearance:none;background:linear-gradient(90deg,#347f87,#73e8d1);border-radius:10px;outline:0;cursor:pointer}input[type=range]::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:#eafff8;border:3px solid #40baa9;box-shadow:0 0 0 3px #72e8d124}.range-labels{display:flex;justify-content:space-between;margin-top:7px;color:#7186a3;font-size:10px}.select{width:100%;background:#0a1526;color:var(--text);border:1px solid #344762;border-radius:8px;padding:9px;margin-top:7px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:12px}.mini-grid .number-wrap{min-width:0}.mini-grid .number-wrap input{width:54px}.note{color:#93a6bf;font-size:11px;line-height:1.6}.model-toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#0b1423;padding:5px;border:1px solid #2c3b51;border-radius:9px}.model-toggle button{padding:9px 4px;border:0;border-radius:6px;background:transparent;color:#91a5bf;font-size:12px;font-weight:700}.model-toggle button.selected{background:#284654;color:var(--a);box-shadow:0 1px 4px #0003}.main{min-width:0;display:flex;flex-direction:column;gap:16px}.hero{border:1px solid #31526a;border-radius:16px;background:linear-gradient(110deg,#15394a,#171d37 67%,#1c2844);padding:19px 23px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.hero p{margin:7px 0 0;font-size:12px;color:#c0d0df;line-height:1.5}.hero strong{font-size:18px;letter-spacing:-.02em}.hero mark{color:var(--a);background:none}.metric-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.metric{padding:17px 19px;position:relative}.metric:before{content:"";position:absolute;left:18px;right:18px;top:0;height:2px;background:var(--metric-color)}.metric-top{display:flex;align-items:center;justify-content:space-between}.axis{font-weight:800;font-size:12px;letter-spacing:.09em}.axis-desc{font-size:10px;color:#93a5bc}.freq{font-size:29px;font-weight:780;letter-spacing:-.055em;margin-top:16px;font-variant-numeric:tabular-nums}.freq small{font-size:13px;color:#9bacc1;letter-spacing:0;font-weight:500}.metric-bottom{display:flex;justify-content:space-between;gap:6px;align-items:end;margin-top:11px;border-top:1px solid #253448;padding-top:12px;font-size:11px;color:#9aaec6}.rise{color:var(--a);font-weight:780}.fall{color:var(--red);font-weight:780}.muted{color:var(--muted)}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.chart-panel{padding:17px 17px 12px;min-width:0}.chart-title{display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap}.chart-title h2{font-size:14px;margin:2px 0 4px;letter-spacing:-.01em}.chart-title p{font-size:11px;color:#8ea2be;margin:0}.chart-actions{display:flex;gap:5px}.chart-actions button{background:#1d2e46;border:1px solid #33445c;border-radius:6px;color:#acbfd8;padding:6px 7px;font-size:10px}.plot{width:100%;position:relative;margin-top:9px;min-height:245px}.plot svg{display:block;width:100%;height:auto}.plot-tip{position:absolute;z-index:5;pointer-events:none;border:1px solid #4e687c;background:#121e31f6;box-shadow:0 8px 26px #0008;border-radius:8px;padding:9px 11px;font-size:11px;line-height:1.8;display:none;white-space:nowrap}.plot-tip strong{color:white}.legend{display:flex;gap:12px;justify-content:center;margin:2px 0 0;flex-wrap:wrap}.legend span{font-size:11px;color:#afbfd3;display:inline-flex;gap:6px;align-items:center}.legend i{display:inline-block;width:11px;height:3px;border-radius:3px;background:var(--v)}.diagnostics{display:grid;grid-template-columns:1fr 1fr;gap:16px}.diagnostics .panel-inner{padding:18px}.param-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.param label{display:block;font-size:10px;color:#8196b3;margin-bottom:5px}.param b{font-size:15px;font-weight:750;font-variant-numeric:tabular-nums}.param b small{font-size:10px;color:#a1b5ce;font-weight:500}.warnings{padding:14px 17px;min-height:101px;background:#121b2c;border:1px solid #35435a;border-radius:11px}.warnings strong{font-size:12px;color:#e1e9f6}.warnings p{font-size:11px;color:#b3c0d3;margin:7px 0 0;line-height:1.55}.warnings p.bad{color:#ffd19d}.footer-note{color:#8fa3be;font-size:11px;line-height:1.65;margin-top:4px;padding:0 4px}.footer-note b{color:#c3d5eb}.badge-inline{display:inline-block;border:1px solid #3c5167;border-radius:5px;padding:2px 5px;color:#bcd0e2;font-size:10px;margin-left:5px}.divider{border:none;border-top:1px solid #2b3b52;margin:17px 0}.control-title{color:#95aeca;font-size:11px;font-weight:750;margin:3px 0 13px;text-transform:uppercase;letter-spacing:.08em}.tiptext{font-size:11px;color:#98acc6;line-height:1.6;margin-top:9px}
+.inverse-controls{margin-top:16px;padding:12px;border:1px solid #386079;background:#102436;border-radius:10px}.inverse-controls .control-title{margin-top:0}.inverse-controls .mini-grid{margin-bottom:8px}.inverse-controls .number-wrap{width:100%}.inverse-controls .number-wrap input{width:100%}.inverse-controls .btn{font-size:11px;padding:8px 9px;margin:3px 0 8px}.breakdown{padding:18px 21px 19px}.breakdown-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}.breakdown-head h2{margin:0;font-size:15px}.breakdown-head p{margin:0;color:#99afc9;font-size:11px;line-height:1.5}.breakdown-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.breakdown-item{padding:13px;border-radius:11px;background:#0b192b;border:1px solid #2c4058}.breakdown-item strong{font-size:12px;color:var(--text)}.breakdown-equation{font-variant-numeric:tabular-nums;margin:10px 0 9px;font-size:11px;line-height:1.9;color:#c7d6e8}.breakdown-equation b{font-size:13px}.spring-bar{height:13px;background:#1b2b42;border-radius:7px;display:flex;overflow:hidden}.spring-bar .paul{background:#8993ff}.spring-bar .opt{background:#62dfc6}.spring-bar .badopt{background:#ff8b7e}.breakdown-caption{display:flex;justify-content:space-between;align-items:center;gap:6px;color:#91a7c4;font-size:10px;margin-top:9px}.breakdown-caption .bad{color:var(--red)}.breakdown-caption .good{color:var(--a)}.breakdown-note{margin-top:13px;font-size:11px;color:#9cb0c9;line-height:1.6}.tag-legend{display:inline-flex;gap:5px;align-items:center}.tag-legend i{width:8px;height:8px;display:inline-block;border-radius:2px;background:var(--v)}
+@media(max-width:1120px){.breakdown-grid{grid-template-columns:1fr}}.status-small{font-size:11px;color:#a8c5ce}
+@media(max-width:1120px){.chart-grid,.diagnostics{grid-template-columns:1fr}.grid{grid-template-columns:315px minmax(0,1fr)}}
+@media(max-width:800px){.shell{padding:15px 12px 30px}.grid{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:1fr 1fr;align-items:start}.metric-row{gap:8px}.metric{padding:15px}.freq{font-size:23px}}
+@media(max-width:570px){.sidebar{grid-template-columns:1fr}.metric-row{grid-template-columns:1fr}.metric{padding:13px 16px}.freq{margin-top:7px}.hero{padding:16px}.top h1{font-size:20px}}
+
+/* Geometry input mode and accessible technical notes */
+[hidden]{display:none!important}
+.beam-choice{margin:0 0 15px}
+.beam-choice .control-title{margin-bottom:8px}
+.beam-choice .note{margin-top:9px}
+.waist-help{margin-top:7px}
+.validation-summary{font-weight:700;color:#e5eefb;font-size:12px}
+.validity-detail{margin-top:11px;padding-top:10px;border-top:1px solid #34445a}
+.validity-detail summary{cursor:pointer;color:#8bdccc;font-size:11px;font-weight:700;list-style-position:inside}
+.validity-detail li{color:#acbdd0;font-size:11px;line-height:1.65;margin:7px 0}
+.validity-detail ul{padding-left:16px;margin:8px 0}
+.model-stat{border-top:1px solid #314259;padding-top:8px;margin-top:8px;color:#8298b3;font-size:10px;line-height:1.6}
+/* Optical-only capture diagnostics: heights are barriers, not harmonic stiffnesses. */
+.depth-section{display:flex;flex-direction:column;gap:14px}
+.depth-head{padding:20px 21px 0}
+.depth-head h2{font-size:17px;margin:4px 0 6px}
+.depth-head p{font-size:12px;line-height:1.6;color:#abbdd3;margin:0}
+.depth-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:10px 21px 15px}
+.depth-controls .number-wrap{width:145px}
+.depth-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0 21px 16px}
+.depth-stat{background:#0c192b;border:1px solid #30425a;border-radius:11px;padding:12px 14px;min-width:0}
+.depth-stat small{display:block;color:#92abc6;font-size:11px;margin-bottom:8px;line-height:1.45}
+.depth-stat strong{font-size:21px;font-weight:760;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.depth-stat span{font-size:11px;color:#adbed3}
+.depth-stat .depth-note{margin-top:5px;font-size:10px;color:#87a1b9;line-height:1.45}
+.depth-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 16px 14px}
+.depth-chart{background:#0d182a;border:1px solid #2b3b51;border-radius:11px;padding:12px 12px 7px;min-width:0}
+.depth-chart h3{font-size:13px;margin:0 0 5px}.depth-chart p{font-size:11px;color:#91a7c0;margin:0 0 2px;line-height:1.45}
+.depth-chart .plot{min-height:0}
+.depth-power{margin:0 16px 14px;padding:13px 13px 7px;border:1px solid #2b3b51;border-radius:11px;background:#0d182a}
+.depth-power .plot{min-height:0}
+.depth-explain{margin:0 20px 20px;border-top:1px solid #304158;padding:13px 1px 0;color:#a5bbd1;font-size:11px;line-height:1.7}
+.depth-explain b{color:#dceafa}
+.depth-legend{display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;margin-top:1px;color:#adbed3;font-size:10px}
+.depth-legend span{display:flex;gap:6px;align-items:center}.depth-legend i{width:19px;height:0;border-top:3px solid var(--v);display:inline-block}.depth-legend i.dash{border-top-style:dashed}
+@media(max-width:840px){.depth-stats,.depth-charts{grid-template-columns:1fr}.depth-controls{align-items:flex-start}}
+
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top"><div><div class="brand"><div class="emblem"><svg width="31" height="31" viewBox="0 0 32 32" fill="none" aria-hidden="true"><ellipse cx="16" cy="16" rx="13" ry="6" stroke="currentColor" stroke-width="1.4" transform="rotate(-39 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="6" stroke="currentColor" stroke-width="1.4" transform="rotate(39 16 16)"/><circle cx="16" cy="16" r="3.6" fill="currentColor"/></svg></div><div><div class="eyebrow">Interactive physics workbench</div><h1>Hybrid Trap Lab <span style="color:#83a3be;font-weight:450">/</span> Paul + Tweezer</h1></div></div><p class="subtitle" style="margin-top:10px">Predict hybrid motional frequencies — or enter measured hybrid frequencies to separate the Paul and optical restoring forces.</p></div><div class="top-actions"><button class="btn" id="resetBtn">↺ Reset</button><button class="btn" id="exportJSON">↓ Save settings</button><button class="btn primary" id="loadJSON">↑ Load settings</button><input type="file" accept="application/json,.json" id="loadFile" hidden /></div></header>
+<div class="grid">
+<aside class="sidebar">
+<section class="panel"><div class="panel-inner"><div class="panel-header"><div class="section-name">01 · Optical tweezer</div><span class="pill" id="laserStatus">ON</span></div><div class="toggle-row"><div><strong>Optical dipole force</strong><div class="subtext">Switch off for Paul-only confinement</div></div><label class="switch" aria-label="Enable optical tweezer"><input type="checkbox" id="tweezerEnabled" checked/><span class="track"></span></label></div>
+<div class="field"><div class="field-top"><label for="powerInput">Optical power at particle</label><div class="number-wrap"><input type="number" min="0" max="10000" step="0.01" id="powerInput" data-key="power"/><span>mW</span></div></div><input type="range" id="powerLog" min="0" max="100" step="0.1" /><div class="range-labels"><span>Off</span><span>0.1 mW</span><span>100 mW</span></div></div>
+<div class="beam-choice"><div class="control-title">Define the beam focus using</div><div class="model-toggle" role="group" aria-label="Beam focus input"><button type="button" id="btnNA" class="selected" aria-pressed="true">Numerical aperture</button><button type="button" id="btnWaist" aria-pressed="false">Known waist w₀</button></div><div class="note" id="geometryExplanation">Estimates a Gaussian 1/e² intensity radius from NA: w₀ = scale × λ/(π NA).</div></div>
+<div class="field" id="naControl"><div class="field-top"><label for="naInput">Numerical aperture</label><div class="number-wrap"><input type="number" min="0.03" max="0.99" step="0.01" id="naInput" data-key="NA"/></div></div><input type="range" min="0.10" max="0.95" step="0.005" id="naRange" data-key="NA"/></div>
+<div class="field" id="waistControl" hidden><div class="field-top"><label for="waistInput">Measured waist w₀</label><div class="number-wrap"><input type="number" min="0.05" max="1000" step="0.01" id="waistInput" data-key="waist"/><span>µm</span></div></div><input type="range" min="0.15" max="15" step="0.01" id="waistRange"/><div class="note waist-help">Beam radius at 1/e² peak intensity (not FWHM). Enter your independently calibrated waist; NA and waist scale are not used in this mode.</div></div>
+<div class="mini-grid"><div class="field"><div class="field-top"><label>Wavelength</label></div><div class="number-wrap"><input type="number" min="200" max="5000" step="10" data-key="lambda"/><span>nm</span></div></div><div class="field" id="waistScaleField"><div class="field-top"><label>Waist scale</label></div><div class="number-wrap"><input type="number" min="0.3" max="5" step="0.05" data-key="waistFactor"/><span>×</span></div></div></div>
+<div class="field"><label>Beam propagation axis</label><select class="select" id="beamAxis" data-key="axis"><option value="Z">Z axis (X/Y transverse)</option><option value="X">X axis (Y/Z transverse)</option><option value="Y">Y axis (X/Z transverse)</option></select></div>
+<div class="field"><div class="field-top"><label>Axial focus displacement</label><div class="number-wrap"><input type="number" min="-1000" max="1000" step="0.05" data-key="focus"/><span>µm</span></div></div><input type="range" min="-3" max="3" step="0.025" data-key="focus" /></div>
+</div></section>
+<section class="panel"><div class="panel-inner"><div class="panel-header"><div class="section-name">02 · Particle</div><span class="pill off">Rayleigh model</span></div><div class="mini-grid"><div class="field"><div class="field-top"><label>Radius</label></div><div class="number-wrap"><input type="number" min="1" max="5000" step="5" data-key="radius"/><span>nm</span></div></div><div class="field"><div class="field-top"><label>Density</label></div><div class="number-wrap"><input type="number" min="100" max="25000" step="100" data-key="density"/><span>kg/m³</span></div></div><div class="field"><div class="field-top"><label>Refractive index n</label></div><div class="number-wrap"><input type="number" min="1.01" max="5" step="0.05" data-key="refractive"/></div></div></div><div class="note">Homogeneous nonabsorbing dielectric sphere in vacuum, using the Clausius–Mossotti polarizability. Radius affects validity and mass, but cancels from the <em>dipole-model</em> frequency shift.</div></div></section>
+<section class="panel"><div class="panel-inner"><div class="panel-header"><div class="section-name">03 · Frequency input</div><span class="pill" id="inputStatus">FORWARD</span></div>
+<div class="model-toggle" role="group" aria-label="Frequency input mode"><button id="btnForward" class="selected" type="button">Paul → Hybrid</button><button id="btnInverse" type="button">Hybrid → Paul</button></div>
+<p class="tiptext" id="inputExplanation">Enter measured secular frequencies with the tweezer switched off. The model predicts their values with the optical beam on.</p>
+<div class="mini-grid"><div class="field"><div class="field-top"><label id="freqLabelX" for="freqInputX">Paul X</label></div><div class="number-wrap"><input id="freqInputX" type="number" min="0" max="1000000" step="1" data-key="fX"/><span>Hz</span></div></div><div class="field"><div class="field-top"><label id="freqLabelY" for="freqInputY">Paul Y</label></div><div class="number-wrap"><input id="freqInputY" type="number" min="0" max="1000000" step="1" data-key="fY"/><span>Hz</span></div></div><div class="field"><div class="field-top"><label id="freqLabelZ" for="freqInputZ">Paul Z</label></div><div class="number-wrap"><input id="freqInputZ" type="number" min="0" max="1000000" step="1" data-key="fZ"/><span>Hz</span></div></div></div>
+<div class="inverse-controls" id="inverseControls" hidden><div class="control-title">Conditions when hybrid frequency was measured</div><div class="mini-grid"><div class="field"><div class="field-top"><label>Reference power</label></div><div class="number-wrap"><input type="number" min="0" max="10000" step="0.01" id="refPowerInput" data-key="refPower"/><span>mW</span></div></div><div class="field" id="refNAControl"><div class="field-top"><label for="refNAInput">Reference NA</label></div><div class="number-wrap"><input type="number" min="0.03" max="0.99" step="0.01" id="refNAInput" data-key="refNA"/></div></div><div class="field" id="refWaistControl" hidden><div class="field-top"><label for="refWaistInput">Reference waist w₀</label></div><div class="number-wrap"><input type="number" min="0.05" max="1000" step="0.01" id="refWaistInput" data-key="refWaist"/><span>µm</span></div></div></div><button class="btn" type="button" id="captureReference">↳ Copy current power &amp; beam size</button><div class="note" id="referenceExplanation">Measured frequencies refer to the tweezer ON at this reference power and beam size. Reference and live beam geometry are independent, but wavelength, waist scale (NA mode), focus position and particle parameters are shared. Changing those shared inputs recalibrates the inferred Paul frequency.</div></div>
+<hr class="divider"/><div class="mini-grid"><div class="field"><div class="field-top"><label>RF drive</label></div><div class="number-wrap"><input type="number" min="1" max="100000" step="1" data-key="rfKHz"/><span>kHz</span></div></div><div class="field"><div class="field-top"><label>RF X:Y ratio</label></div><div class="number-wrap"><input type="number" min="0.1" max="10" step="0.05" data-key="ratio"/></div></div></div><div class="note">Signed RF geometry: q<sub>X</sub> : q<sub>Y</sub> : q<sub>Z</sub> = 1 : r : −(1+r). Floquet predictions use approximate reconstructed RF parameters; inverse calibration is by squared secular frequency.</div></div></section>
+<section class="panel"><div class="panel-inner"><div class="panel-header"><div class="section-name">04 · Computation</div></div><div class="model-toggle"><button id="btnPseudo" class="selected">Secular / pseudo</button><button id="btnFloquet">RF Floquet</button></div><p class="tiptext" id="modelExplanation">Adds the optical spring to the measured secular restoring force. Best for small Mathieu q and slow motion relative to the RF drive.</p><div class="field"><div class="field-top"><label>Power-scan upper limit</label><div class="number-wrap"><input type="number" min="0.001" max="10000" step="0.1" data-key="scanMax"/><span>mW</span></div></div></div><p class="note">Floquet mode integrates the linearized Mathieu equation over one RF period. It detects instability bands; the reported frequency is a <em>quasifrequency</em> and folds at half the RF drive.</p></div></section>
+</aside>
+<main class="main">
+<section class="hero"><div><strong id="heroTitle">Hybrid confinement <mark>active</mark></strong><p id="heroSubtitle">Optical restoring force is added to the Paul-trap potential at the particle position.</p></div><div style="text-align:right"><div class="eyebrow">Active calculation</div><div id="modeTag" class="status-small" style="margin-top:8px">SECULAR · HARMONIC</div></div></section>
+<section class="metric-row" id="metrics"></section>
+<section class="panel breakdown"><div class="breakdown-head"><h2>Paul / optical confinement decomposition</h2><button class="btn" id="exportDecomposition" type="button">↓ Export decomposition CSV</button><p id="breakdownHeading">The two terms add in <b>frequency squared</b>, not frequency.</p></div><div class="breakdown-grid" id="breakdown"></div><div class="breakdown-note" id="breakdownFootnote">Optical terms are signed: an anti-restoring optical spring subtracts from Paul confinement.</div></section>
+<section class="chart-grid"><article class="panel chart-panel"><div class="chart-title"><div><h2>Frequency vs laser power</h2><p>Power sweep · numerical evaluation of all three modes</p></div><div class="chart-actions"><button data-export="power:csv">CSV</button><button data-export="power:svg">SVG</button></div></div><div class="plot" id="powerPlot"></div><div class="legend"><span><i style="--v:var(--a)"></i>X mode</span><span><i style="--v:var(--b)"></i>Y mode</span><span><i style="--v:var(--c)"></i>Z mode</span></div></article>
+<article class="panel chart-panel"><div class="chart-title"><div><h2 id="geoChartTitle">Frequency vs numerical aperture</h2><p id="geoChartSubtitle">NA sweep · optical power held constant</p></div><div class="chart-actions"><button data-export="na:csv">CSV</button><button data-export="na:svg">SVG</button></div></div><div class="plot" id="naPlot"></div><div class="legend"><span><i style="--v:var(--a)"></i>X mode</span><span><i style="--v:var(--b)"></i>Y mode</span><span><i style="--v:var(--c)"></i>Z mode</span></div></article></section>
+<section class="panel depth-section" id="depthSection">
+ <div class="depth-head"><div class="eyebrow">Optical-only capture</div><h2>Escape barrier and motional temperature</h2><p>Remove the Paul potential: what energy can the Gaussian optical well contain? The curves below are full <b>optical potential profiles</b>, not just harmonic-frequency estimates. Radial and axial escape barriers coincide in the ideal, untilted Gaussian model, despite different confinement lengths.</p></div>
+ <div class="depth-controls"><div><strong style="font-size:12px">Particle temperature before Paul switch-off</strong><div class="subtext">User-supplied motional temperature; compare k<sub>B</sub>T with the available optical depth.</div></div><div class="number-wrap"><input id="particleTempInput" type="number" min="0" max="100000000" step="0.1" data-key="particleTemp" aria-label="Particle motional temperature (mK)"/><span>mK</span></div></div>
+ <div class="depth-stats"><div class="depth-stat"><small>Radial escape depth</small><strong id="radialDepth">—</strong> <span id="radialDepthUnit">mK</span><div class="depth-note">Optical well only, from beam focus</div></div><div class="depth-stat"><small>Axial escape depth</small><strong id="axialDepth">—</strong> <span id="axialDepthUnit">mK</span><div class="depth-note">Same barrier, different Rayleigh length</div></div><div class="depth-stat"><small>Available from current particle position</small><strong id="availableDepth">—</strong> <span id="availableDepthUnit">mK</span><div class="depth-note" id="depthMarginNote">accounts for axial focus offset</div></div></div>
+ <div class="depth-charts"><article class="depth-chart"><div class="chart-title"><div><h3>Radial optical potential</h3><p>U(r,0) − U(0,0), in kelvin</p></div><div class="chart-actions"><button data-depth-export="radial:csv">CSV</button><button data-depth-export="radial:svg">SVG</button></div></div><div class="plot" id="radialDepthPlot"></div></article><article class="depth-chart"><div class="chart-title"><div><h3>Axial optical potential</h3><p>U(0,z) − U(0,0), in kelvin</p></div><div class="chart-actions"><button data-depth-export="axial:csv">CSV</button><button data-depth-export="axial:svg">SVG</button></div></div><div class="plot" id="axialDepthPlot"></div></article></div>
+ <div class="depth-power"><div class="chart-title"><div><h3 style="margin:0 0 4px;font-size:13px">Optical-only escape depth vs power</h3><p style="margin:0;color:#91a7c0;font-size:11px">Radial and axial depth lines coincide in this ideal model; amber = available from particle position.</p></div><div class="chart-actions"><button data-depth-export="depthPower:csv">CSV</button><button data-depth-export="depthPower:svg">SVG</button></div></div><div class="plot" id="depthPowerPlot"></div><div class="depth-legend"><span><i style="--v:#73e8d1"></i>Radial depth</span><span><i class="dash" style="--v:#a6a4ff"></i>Axial depth (overlap)</span><span><i class="dash" style="--v:#ffc37a"></i>Depth at particle</span><span><i class="dash" style="--v:#fa8991"></i>k<sub>B</sub>T</span></div></div>
+ <div class="depth-explain" id="depthInterpretation"></div>
+</section>
+<section class="diagnostics"><div class="panel"><div class="panel-inner"><div class="panel-header"><span class="section-name">Optical beam & particle</span><span class="pill off" id="rayleighPill">DIPOLE</span></div><div class="param-grid" id="opticalParams"></div></div></div><div class="panel"><div class="panel-inner"><div class="panel-header"><span class="section-name">Physics checks</span><span class="pill" id="validationTag">CHECKED</span></div><div id="warnings" class="warnings"></div></div></div></section>
+<div class="footer-note"><b>Inverse mode:</b> f<sub>Paul,i</sub>² = f<sub>hybrid,measured,i</sub>² − K<sub>opt,i</sub>(P<sub>reference</sub>, w<sub>0,reference</sub>)/(4π²m). This separation is model-dependent: a hybrid frequency alone cannot independently determine both restoring forces. Negative inferred Paul frequency squared means there is no physically stable Paul-only oscillator compatible with the stated measurement under this model. <br><b>Model:</b> U<sub>opt</sub>(r,z) = −Re(α) I(r,z)/(2ε₀c); &nbsp; K<sub>r</sub> = 4|U₀|/w₀² and K<sub>z</sub> = 2|U₀|/z<sub>R</sub>² at focus. Secular approximation f<sub>i,hybrid</sub>² = f<sub>i,Paul</sub>² + K<sub>i,opt</sub>/(4π²m). Full-RF analysis uses x″ + [a<sub>i</sub> − 2q<sub>i</sub>cos(2τ) + 4f<sub>i,opt</sub>²/f<sub>RF</sub>²]x = 0, with τ=π f<sub>RF</sub>t. Damping, scattering recoil, absorption/heating, vector high-NA optics, aberration, and particle-induced field changes are not included. Treat this as a theory exploration tool, not a guaranteed quantitative prediction.</div>
+</main></div>
+</div>
+<script>
+'use strict';
+const DEFAULTS={enabled:true,power:0.1,NA:0.67,lambda:1560,waistFactor:1,axis:'Z',focus:0,radius:50,density:3500,refractive:2.4,fX:4049,fY:4154,fZ:6501,fHX:5928.0061,fHY:6000.2142,fHZ:6816.9451,refPower:0.1,refNA:0.67,waist:1.56/(Math.PI*0.67),refWaist:1.56/(Math.PI*0.67),focusMode:'na',inputMode:'inverse',inversePrimed:true,rfKHz:50,ratio:1,model:'pseudo',scanMax:1,particleTemp:1};
+let state={...DEFAULTS};
+const $=id=>document.getElementById(id);
+const eps0=8.8541878128e-12, c=299792458, kB=1.380649e-23;
+const keys=['X','Y','Z'];const colors=['#73e8d1','#a6a4ff','#ffc37a'];
+let chartRecords={};
+function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+function fmt(v,d=2){return Number.isFinite(v)?v.toLocaleString('en-US',{maximumFractionDigits:d}):'—';}
+function powerToPosition(p){if(p<=0)return 0;return clamp(1+99*(Math.log10(p)+3)/5,1,100)}
+function positionToPower(t){if(t<=0)return 0;return Math.pow(10,-3+5*(t-1)/99)}
+function readState(){return {...state};}
+function validate(s){for(const key of Object.keys(DEFAULTS)){if(typeof DEFAULTS[key]==='number'&&!Number.isFinite(s[key]))s[key]=DEFAULTS[key]};s.NA=clamp(s.NA,.03,.99);s.power=Math.max(0,s.power);s.radius=Math.max(1,s.radius);s.density=Math.max(100,s.density);s.refractive=Math.max(1.01,s.refractive);s.lambda=Math.max(200,s.lambda);s.waistFactor=Math.max(.3,s.waistFactor);s.rfKHz=Math.max(1,s.rfKHz);s.ratio=clamp(s.ratio,.1,10);s.scanMax=Math.max(.001,s.scanMax);s.particleTemp=Math.max(0,s.particleTemp);s.refPower=Math.max(0,s.refPower);s.refNA=clamp(s.refNA,.03,.99);s.waist=clamp(s.waist,.05,1000);s.refWaist=clamp(s.refWaist,.05,1000);if(!['na','waist'].includes(s.focusMode))s.focusMode='na';for(const k of ['fX','fY','fZ','fHX','fHY','fHZ'])s[k]=Math.max(0,s[k]);if(!['forward','inverse'].includes(s.inputMode))s.inputMode='forward';return s;}
+function optics(s){
+ const r=s.radius*1e-9,lam=s.lambda*1e-9,na=s.NA;
+ const m=4*Math.PI*r*r*r*s.density/3;
+ const pol=4*Math.PI*eps0*r*r*r*(s.refractive*s.refractive-1)/(s.refractive*s.refractive+2);
+ // The same physical Gaussian waist feeds all optical curvatures, in either input mode.
+ const w0=s.focusMode==='waist'?s.waist*1e-6:s.waistFactor*lam/(Math.PI*na);
+ const zR=Math.PI*w0*w0/lam;
+ const p=s.enabled?s.power*1e-3:0;
+ const intensity=2*p/(Math.PI*w0*w0),U0=pol*intensity/(2*eps0*c);
+ const focus=s.focus*1e-6/zR;
+ const radK=(4*U0/(w0*w0))/Math.pow(1+focus*focus,2);
+ const axialK=(2*U0/(zR*zR))*(1-3*focus*focus)/Math.pow(1+focus*focus,3);
+ const k=[radK,radK,radK];k[keys.indexOf(s.axis)]=axialK;
+ const delta=k.map(v=>v/m/(4*Math.PI*Math.PI));
+ return {m,pol,w0,zR,U0,intensity,focus,radK,axialK,delta,sizeParameter:2*Math.PI*r/lam};
+}
+// Gaussian dipole model: U(r,z) = -U0/[1+(z/zR)^2] * exp[-2 r^2/(w0^2(1+(z/zR)^2))].
+// Both infinite-escape depths are U0 for a stationary lossless ideal Gaussian beam.
+// Off-focus starting position has available energy U0/[1+(zStart/zR)^2].
+function opticalDepth(s){
+ const o=optics(s), fullK=o.U0/kB, availableK=fullK/(1+o.focus*o.focus);
+ return {o,fullK,availableK,fullmK:1000*fullK,availablemK:1000*availableK};
+}
+function depthReadout(mK){
+ if(mK===0)return {value:'0',unit:'mK'};
+ if(mK>=1000)return {value:fmt(mK/1000,mK>1e5?1:3),unit:'K'};
+ if(mK>=.01)return {value:fmt(mK,3),unit:'mK'};
+ return {value:fmt(mK*1000,3),unit:'µK'};
+}
+function depthSample(kind,s,x){
+ const d=opticalDepth(s),o=d.o, r=x*1e-6;
+ if(kind==='radial')return d.fullK*(1-Math.exp(-2*r*r/(o.w0*o.w0)));
+ if(kind==='axial'){const t=r/o.zR;return d.fullK*t*t/(1+t*t)}
+ return 0;
+}
+// Common independent SVG plotting code for the optical energy graphs.
+function depthChart(kind){
+ const d=opticalDepth(state),tempK=state.particleTemp/1000;
+ const powerMode=kind==='depthPower';
+ const scale=powerMode?Math.max(state.scanMax,state.power*1.12,.001):kind==='radial'?d.o.w0*1e6:d.o.zR*1e6;
+ const lo=powerMode?0:kind==='radial'?0:-5*scale;
+ const hi=powerMode?scale:kind==='radial'?3*scale:5*scale;
+ const n=150;
+ const rows=Array.from({length:n+1},(_,i)=>{
+  const x=lo+(hi-lo)*i/n;
+  if(powerMode){const z=opticalDepth({...state,power:x});return {x,radial:z.fullK,axial:z.fullK,available:z.availableK};}
+  return {x,value:depthSample(kind,state,x)};
+ });
+ const peak=powerMode?Math.max(rows.at(-1).radial,tempK,d.fullK):Math.max(d.fullK,tempK);
+ const maxY=Math.max(0.0000001,peak*1.12), W=600,H=300,L=73,R=16,T=18,B=50;
+ const X=x=>L+(x-lo)/(hi-lo)*(W-L-R),Y=y=>T+(maxY-y)/maxY*(H-T-B);
+ const vLabel=(v)=>v>=10?fmt(v,1):v>=1?fmt(v,2):v>=.01?fmt(v,3):v>=.0001?fmt(v,5):v.toExponential(1);
+ const path=(key)=>rows.map((row,i)=>(i===0?'M':'L')+X(row.x).toFixed(2)+','+Y(row[key]).toFixed(2)).join(' ');
+ let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${kind==='radial'?'Radial optical potential':kind==='axial'?'Axial optical potential':'Optical trap depth against laser power'} in kelvin" xmlns="http://www.w3.org/2000/svg">`;
+ for(let i=0;i<=5;i++){
+  const y=maxY*i/5,py=Y(y),x=lo+(hi-lo)*i/5,px=X(x);
+  svg+=`<line x1="${L}" y1="${py}" x2="${W-R}" y2="${py}" stroke="#29394d"/><text x="${L-11}" y="${py+4}" text-anchor="end" font-size="12" fill="#92a9c5">${vLabel(y)}</text>`;
+  svg+=`<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="#243449"/><text x="${px}" y="${H-B+20}" text-anchor="middle" font-size="12" fill="#92a9c5">${fmt(x,scale<1?3:2)}</text>`;
+ }
+ const xlabel=powerMode?'Laser power (mW)':kind==='radial'?'Radial distance from focus (µm)':'Axial distance from focus (µm)';
+ svg+=`<text x="${(L+W-R)/2}" y="${H-5}" text-anchor="middle" font-size="12" fill="#abc0d6">${xlabel}</text><text x="20" y="${H/2}" text-anchor="middle" font-size="12" transform="rotate(-90 20 ${H/2})" fill="#abc0d6">${powerMode?'Escape depth (K)':'Potential above minimum (K)'}</text>`;
+ if(powerMode){
+  // Draw full curves at exactly equal heights. Different line patterns make the identity obvious.
+  svg+=`<path d="${path('radial')}" stroke="#73e8d1" stroke-width="4" fill="none"/>`;
+  svg+=`<path d="${path('axial')}" stroke="#a6a4ff" stroke-width="2.6" stroke-dasharray="8 8" fill="none"/>`;
+  if(Math.abs(state.focus)>1e-8)svg+=`<path d="${path('available')}" stroke="#ffc37a" stroke-width="2.5" stroke-dasharray="5 5" fill="none"/>`;
+  if(state.power>=lo&&state.power<=hi)svg+=`<line x1="${X(state.power)}" y1="${T}" x2="${X(state.power)}" y2="${H-B}" stroke="#e1edff" stroke-dasharray="3 5" stroke-opacity=".65"/>`;
+ }else{
+  svg+=`<path d="${path('value')}" stroke="${kind==='radial'?'#73e8d1':'#a6a4ff'}" stroke-width="3.3" fill="none"/>`;
+  svg+=`<line x1="${L}" y1="${Y(d.fullK)}" x2="${W-R}" y2="${Y(d.fullK)}" stroke="#d6e5fa" stroke-opacity=".48" stroke-dasharray="5 6"/>`;
+  if(kind==='axial'){
+   const z0=state.focus;
+   if(z0>=lo&&z0<=hi)svg+=`<circle cx="${X(z0)}" cy="${Y(depthSample('axial',state,z0))}" r="5.5" fill="#ffc37a" stroke="#fff" stroke-width="1.5"/><text x="${Math.min(W-120,Math.max(115,X(z0)+11))}" y="${Math.max(18,Y(depthSample('axial',state,z0))-12)}" fill="#ffc37a" font-size="11">Paul equilibrium</text>`;
+  }
+ }
+ if(tempK>0&&tempK<maxY)svg+=`<line x1="${L}" y1="${Y(tempK)}" x2="${W-R}" y2="${Y(tempK)}" stroke="#fa8991" stroke-dasharray="7 6" stroke-width="2"/><text x="${W-R-3}" y="${Math.max(14,Y(tempK)-6)}" text-anchor="end" fill="#fa9da3" font-size="12">kBT: ${vLabel(tempK)} K</text>`;
+ svg+=`<rect x="${L}" y="${T}" width="${W-L-R}" height="${H-T-B}" fill="transparent" class="hover-area"/><line class="hover-guide" x1="${L}" x2="${L}" y1="${T}" y2="${H-B}" stroke="#d1e4ff" stroke-dasharray="4 5" style="display:none"/></svg><div class="plot-tip"></div>`;
+ const container=$(kind==='radial'?'radialDepthPlot':kind==='axial'?'axialDepthPlot':'depthPowerPlot');container.innerHTML=svg;
+ const area=container.querySelector('.hover-area'),guide=container.querySelector('.hover-guide'),tip=container.querySelector('.plot-tip');
+ area.addEventListener('pointermove',e=>{
+  const b=area.getBoundingClientRect(),fraction=clamp((e.clientX-b.left)/b.width,0,1),row=rows[Math.round(fraction*n)];
+  guide.style.display='';guide.setAttribute('x1',X(row.x));guide.setAttribute('x2',X(row.x));
+  tip.innerHTML=powerMode?`<strong>${fmt(row.x,4)} mW</strong><br>Radial: ${vLabel(row.radial)} K<br>Axial: ${vLabel(row.axial)} K<br>From particle: ${vLabel(row.available)} K`:`<strong>${fmt(row.x,3)} µm</strong><br>Optical potential: ${vLabel(row.value)} K`;
+  tip.style.display='block';tip.style.left=clamp((e.clientX-container.getBoundingClientRect().left)+12,8,Math.max(8,container.clientWidth-tip.offsetWidth-3))+'px';tip.style.top=clamp((e.clientY-container.getBoundingClientRect().top)-tip.offsetHeight-12,4,Math.max(4,container.clientHeight-tip.offsetHeight-2))+'px';
+ });
+ area.addEventListener('pointerleave',()=>{tip.style.display='none';guide.style.display='none'});
+ chartRecords[kind]={data:{points:rows,kind},svg:container.querySelector('svg').outerHTML};
+}
+function drawDepth(){
+ const d=opticalDepth(state),r=depthReadout(d.fullmK),a=depthReadout(d.availablemK);
+ for(const id of ['radialDepth','axialDepth'])$(id).textContent=r.value;
+ for(const id of ['radialDepthUnit','axialDepthUnit'])$(id).textContent=r.unit;
+ $('availableDepth').textContent=a.value;$('availableDepthUnit').textContent=a.unit;
+ const tK=state.particleTemp/1000,ratio=tK===0?(d.availableK>0?Infinity:0):d.availableK/tK;
+ const margin=ratio===Infinity?'∞':fmt(ratio,2);
+ $('depthMarginNote').textContent='Available depth / kBT = '+margin+' ×'+(state.focus?' · offset reduces depth':'');
+ const tempGoal=depthReadout(d.availablemK/10);
+ const idealFr=d.o.U0>0?Math.sqrt(4*d.o.U0/(d.o.m*d.o.w0*d.o.w0))/(2*Math.PI):0;
+ const idealFz=d.o.U0>0?Math.sqrt(2*d.o.U0/(d.o.m*d.o.zR*d.o.zR))/(2*Math.PI):0;
+ let level=d.availableK<=0?'No optical confinement: the tweezer is off or power is zero.':ratio>=10?'The entered temperature is below a conservative 10× energy-margin target (idealized).':ratio>=1?'kBT is below the estimated depth, but there is little margin for 3D energy or transfer heating.':'kBT is at least as large as the available optical depth; capture is unlikely without additional cooling.';
+ $('depthInterpretation').innerHTML=`<b>Comparison:</b> ${level} With the current focus offset, a 10× depth-to-kBT target corresponds to <b>T ≲ ${tempGoal.value} ${tempGoal.unit}</b> (guideline, not a guaranteed capture threshold). Optical-only small-amplitude frequencies at the beam focus are <b>${fmt(idealFr,1)} Hz radial</b> and <b>${fmt(idealFz,1)} Hz axial</b>.<br><b>Why the depths overlap:</b> For an ideal red-detuned Gaussian dipole potential, both escape paths rise from −U₀ to 0 at infinity; different curvatures do <em>not</em> imply different total depths. The amber depth uses the potential energy at the displaced Paul-equilibrium position, U₀/[1+(z/zᵣ)²].<br><b>Interpretation:</b> E ≈ kBT per mode is not a deterministic capture condition: the energy is distributed over all modes and an abrupt Paul switch-off can add energy. Radiation pressure, gravity, nonparaxial/vector focusing, heating, beam pointing, and transient micromotion can further reduce actual confinement. These plots show an <em>idealized optical potential</em>, potentially overestimating real confinement; they do not predict survival probability.`;
+ for(const kind of ['radial','axial','depthPower'])depthChart(kind);
+}
+function trapParams(s, frequencies){
+ const fd=s.rfKHz*1000, f=frequencies.map(v=>v===null?0:v);
+ const beta=f.map(v=>2*v/fd);const geom=[1,s.ratio,-1-s.ratio];
+ const q0=Math.sqrt(2*beta.reduce((a,b)=>a+b*b,0)/geom.reduce((a,b)=>a+b*b,0));
+ const q=geom.map(g=>g*q0),a=beta.map((b,i)=>b*b-q[i]*q[i]/2);
+ return {fd,q,a,qmax:Math.max(...q.map(Math.abs)),aSum:a.reduce((x,y)=>x+y,0)};
+}
+// Time-domain monodromy of the undamped 1D Mathieu oscillator, integrating its two basis vectors.
+function floquet(q,a,fd){
+ const steps=128,h=Math.PI/steps;
+ let x1=1,v1=0,x2=0,v2=1;
+ for(let j=0;j<steps;j++){
+  const t=j*h, k0=a-2*q*Math.cos(2*t),km=a-2*q*Math.cos(2*(t+h/2)),k1=a-2*q*Math.cos(2*(t+h));
+  function advance(x,v){
+   const dx1=v,dv1=-k0*x;
+   const dx2=v+h*dv1/2,dv2=-km*(x+h*dx1/2);
+   const dx3=v+h*dv2/2,dv3=-km*(x+h*dx2/2);
+   const dx4=v+h*dv3,dv4=-k1*(x+h*dx3);
+   return [x+h*(dx1+2*dx2+2*dx3+dx4)/6,v+h*(dv1+2*dv2+2*dv3+dv4)/6];
+  }
+  [x1,v1]=advance(x1,v1);[x2,v2]=advance(x2,v2);
+  if(!Number.isFinite(x1)||!Number.isFinite(v2))return {f:null,unstable:true};
+ }
+ const trace=(x1+v2)/2;
+ if(Math.abs(trace)>1+1e-8)return {f:null,unstable:true,trace};
+ const mu=Math.acos(clamp(trace,-1,1));
+ return {f:fd*mu/(2*Math.PI),unstable:false,trace};
+}
+function decomposition(s){
+ const op=optics(s),measured=[s.fHX,s.fHY,s.fHZ];
+ const refOp=optics({...s,enabled:true,power:s.refPower,NA:s.refNA,waist:s.refWaist});
+ const inferred=measured.map((f,i)=>{
+  const squared=f*f-refOp.delta[i];
+  // No real, stable Paul-only secular frequency if squared < 0.
+  return squared>=-1e-8?Math.sqrt(Math.max(0,squared)):null;
+ });
+ const base=s.inputMode==='inverse'?inferred:[s.fX,s.fY,s.fZ];
+ return {base,measured,refOp,invalid:base.map(v=>v===null),op};
+}
+function frequencies(s){
+ const d=decomposition(s),tp=trapParams(s,d.base);
+ const result=d.base.map((f,i)=>{
+   if(f===null)return {f:null,unstable:true,incompatible:true};
+   if(s.model==='pseudo'){
+    const square=f*f+d.op.delta[i];return square>=0?{f:Math.sqrt(square),unstable:false}:{f:null,unstable:true};
+   }
+   return floquet(tp.q[i],tp.a[i]+4*d.op.delta[i]/(tp.fd*tp.fd),tp.fd);
+ });
+ return {...d,tp,result};
+}
+function syncControls(){
+ document.querySelectorAll('input[data-key],select[data-key]').forEach(el=>{const key=el.dataset.key;
+  if(el.id==='freqInputX'||el.id==='freqInputY'||el.id==='freqInputZ'){
+   const axis=el.id.slice(-1),sourceKey=state.inputMode==='inverse'?'fH'+axis:'f'+axis;
+   if(document.activeElement!==el)el.value=state[sourceKey];
+  }else if(document.activeElement!==el||el.type==='range')el.value=state[key];
+ });
+ $('powerInput').value=state.power;$('powerLog').value=powerToPosition(state.power);
+ $('naInput').value=state.NA;$('naRange').value=state.NA;
+ $('waistInput').value=state.waist;$('waistRange').value=clamp(state.waist,.15,15);
+ const known=state.focusMode==='waist';
+ $('btnNA').classList.toggle('selected',!known);$('btnWaist').classList.toggle('selected',known);
+ $('btnNA').setAttribute('aria-pressed',String(!known));$('btnWaist').setAttribute('aria-pressed',String(known));
+ $('naControl').hidden=known;$('waistControl').hidden=!known;$('waistScaleField').hidden=known;
+ $('refNAControl').hidden=known;$('refWaistControl').hidden=!known;
+ $('geometryExplanation').textContent=known?'Use a measured 1/e² intensity waist directly. The Rayleigh range is zᵣ = π w₀²/λ; NA is not used.':'Gaussian estimate: w₀ = waist scale × λ/(π NA). Use Known waist if you have a calibrated spot size.';
+ $('referenceExplanation').textContent=known?'Reference frequencies are measured with the reference power and reference waist shown above. Changing live waist or power leaves the inferred Paul trap fixed. Wavelength, focus and particle properties remain shared.':'Reference frequencies are measured at the reference power and NA shown above. Changing live NA or power leaves the inferred Paul trap fixed. Wavelength, waist scale, focus and particle properties remain shared.';
+ $('geoChartTitle').textContent=known?'Frequency vs beam waist':'Frequency vs numerical aperture';
+ $('geoChartSubtitle').textContent=known?'1/e² intensity waist sweep · power fixed':'NA sweep · power fixed';
+ $('tweezerEnabled').checked=state.enabled;
+ $('laserStatus').textContent=state.enabled?'ON':'OFF';$('laserStatus').className='pill'+(state.enabled?'':' off');
+ $('btnForward').classList.toggle('selected',state.inputMode==='forward');
+ $('btnInverse').classList.toggle('selected',state.inputMode==='inverse');
+ $('inputStatus').textContent=state.inputMode==='inverse'?'INVERSE':'FORWARD';
+ $('inverseControls').hidden=state.inputMode!=='inverse';
+ for(const axis of keys)$('freqLabel'+axis).textContent=(state.inputMode==='inverse'?'Measured hybrid ':'Paul only ')+axis;
+ $('inputExplanation').textContent=state.inputMode==='inverse'? 'Enter measured hybrid secular frequencies at the reference power and beam size below. The software subtracts the modeled optical spring to infer the Paul-only frequencies.': 'Enter Paul-only secular frequencies. The software adds the modeled optical spring to obtain the hybrid frequencies.';
+ $('btnPseudo').classList.toggle('selected',state.model==='pseudo');$('btnFloquet').classList.toggle('selected',state.model==='floquet');
+ $('modelExplanation').textContent=state.model==='pseudo'?'Adds optical spring curvature to the secular restoring force (or subtracts it in inverse calibration).':'Integrates the reconstructed Mathieu model over an RF period. In inverse mode, the measured frequencies still calibrate Paul stiffness using the secular approximation; Floquet is a forward cross-check only.';
+ $('modeTag').textContent=(state.inputMode==='inverse'?'INVERSE · ':'FORWARD · ')+(state.model==='pseudo'?'SECULAR':'RF FLOQUET');
+ $('heroTitle').innerHTML=state.inputMode==='inverse'?'Measured hybrid <mark>→ Paul + tweezer</mark>':state.enabled?'Hybrid confinement <mark>active</mark>':'Paul-only confinement <mark>active</mark>';
+ $('heroSubtitle').textContent=state.inputMode==='inverse'?'Measured hybrid frequencies set the reference point; the inferred Paul trap stays fixed while you vary the live optical settings.':state.enabled?'Dipole restoring forces are calculated at the particle position, including transverse and axial stiffness.':'Optical force disabled. The Paul trap is the only active restoring force.';
+}
+function drawMetrics(calc){
+ const baseline=calc.base;
+ $('metrics').innerHTML=keys.map((k,i)=>{
+ const f=calc.result[i].f, pf=calc.op.delta[i],base=baseline[i],opt=Math.sqrt(Math.abs(pf)),d=f===null||base===null?null:f-base;
+ const color=colors[i],role=state.axis===k?'Axial to beam':'Transverse to beam';
+ const problem=calc.result[i].incompatible;
+ const text=problem?'NO SOLUTION':f===null?'UNSTABLE':'MODE';
+ return `<article class="panel metric" style="--metric-color:${color}"><div class="metric-top"><span class="axis" style="color:${color}">${k} <span class="axis-desc">/ ${role}</span></span><span class="pill ${f===null?'warn':'off'}">${text}</span></div><div class="freq">${f===null?'—':fmt(f,1)} <small>Hz ${state.model==='floquet'?'(RF model)':''}</small></div><div class="metric-bottom"><span>Paul: ${base===null?'not physical':fmt(base,1)+' Hz'}<br>Tweezer: ${pf<0?'−':''}${fmt(opt,1)} Hz ${pf<0?'(anti-trap)':''}</span><span class="${d===null?'fall':d<-.05?'fall':'rise'}">${d===null?'Not valid':(d>0?'+':'')+fmt(d,1)+' Hz'}</span></div></article>`;
+ }).join('');
+}
+function drawBreakdown(calc){
+ const inverse=state.inputMode==='inverse';
+ $('breakdownHeading').innerHTML='Current predicted confinement: <b>f²<sub>hybrid</sub> = f²<sub>Paul</sub> + signed f²<sub>opt</sub></b>';
+ $('breakdown').innerHTML=keys.map((k,i)=>{
+  const b=calc.base[i],d=calc.op.delta[i];
+  if(b===null)return `<div class="breakdown-item"><strong style="color:${colors[i]}">${k} mode</strong><div class="breakdown-equation" style="color:var(--red)">No real Paul-only frequency for this measured hybrid value and the assumed reference optical spring.</div></div>`;
+  const paul2=b*b, hybrid2=paul2+d, max=Math.max(paul2,Math.max(0,d),hybrid2,1),scale=Math.max(paul2,0)+Math.max(0,d),
+   pwidth=scale>0?100*paul2/scale:0,owidth=scale>0?100*Math.max(0,d)/scale:0;
+  const signed=d<0?'−':'+', optF=Math.sqrt(Math.abs(d));
+  const shift=hybrid2>0?100*d/hybrid2:null;
+  const ref=inverse?`<span>Measured reference: ${fmt(calc.measured[i],1)} Hz</span>`:'';
+  return `<div class="breakdown-item"><strong style="color:${colors[i]}">${k} mode</strong><div class="breakdown-equation"><b>${fmt(b,1)}²</b> <span style="color:${d<0?'#ff8b7e':'#62dfc6'}">${signed} ${fmt(optF,1)}²</span> = <b>${hybrid2<0?'unstable':fmt(Math.sqrt(hybrid2),1)+'²'}</b><br><span class="muted">Paul²: ${fmt(paul2,0)} · Optical²: ${d<0?'−':''}${fmt(Math.abs(d),0)} Hz²</span></div><div class="spring-bar" role="img" aria-label="Paul and optical squared-frequency contributions"><div class="paul" style="width:${pwidth}%"></div><div class="opt" style="width:${owidth}%"></div></div>${d<0?`<div class="spring-bar" style="margin-top:3px;height:4px;background:transparent"><div class="badopt" style="width:${100*Math.min(1,Math.abs(d)/max)}%"></div></div>`:''}<div class="breakdown-caption"><span class="tag-legend"><i style="--v:#8993ff"></i>Paul</span><span class="tag-legend"><i style="--v:${d<0?'#ff8b7e':'#62dfc6'}"></i>Optical</span><span class="${d<0?'bad':'good'}">${shift===null?'unstable':fmt(shift,1)+'% of net f²'}</span></div>${inverse?`<div class="note" style="margin-top:8px">${ref}</div>`:''}</div>`;
+ }).join('');
+ $('breakdownFootnote').textContent=inverse?'Inferred Paul frequencies are obtained from the measured hybrid values and the reference (not live) optical settings. The bars above use live settings; changing live power or switching off the tweezer does not alter the inferred Paul trap. An anti-restoring optical spring is shown in red.':'The optical and Paul parts add as squared secular frequencies, not as frequencies. Red indicates negative optical stiffness (anti-trapping).';
+}
+function formatSI(x,unit){if(x===0)return `0 ${unit}`;if(Math.abs(x)<1e-18)return `${fmt(x*1e21,2)} z${unit}`;if(Math.abs(x)<1e-15)return `${fmt(x*1e18,2)} a${unit}`;if(Math.abs(x)<1e-12)return `${fmt(x*1e15,2)} f${unit}`;if(Math.abs(x)<1e-9)return `${fmt(x*1e12,2)} p${unit}`;if(Math.abs(x)<1e-6)return `${fmt(x*1e9,2)} n${unit}`;return `${fmt(x,3)} ${unit}`;}
+function diagnostics(calc){
+ const o=calc.op,tp=calc.tp,known=state.focusMode==='waist';
+ const effNA=(state.lambda*1e-9)/(Math.PI*o.w0);
+ const dat=[['Beam waist w₀',fmt(o.w0*1e6,3),'µm'],['Rayleigh range zᵣ',fmt(o.zR*1e6,3),'µm'],['Beam definition',known?'Known waist':'From NA',''],['λ/(π w₀)',fmt(effNA,3),'paraxial'],['Mass',fmt(o.m*1e18,3),'fg'],['Optical depth |U₀| / kB',fmt(o.U0/kB,2),'K'],['Rayleigh size parameter',fmt(o.sizeParameter,3),'2πr/λ'],['Dipole α',o.pol.toExponential(2),'SI']];
+ $('opticalParams').innerHTML=dat.map(([k,v,u])=>`<div class="param"><label>${k}</label><b>${v} <small>${u}</small></b></div>`).join('');
+ const errors=[],limits=[],technical=[];
+ if(calc.invalid.some(Boolean))errors.push('Inverse data are incompatible for '+keys.filter((k,i)=>calc.invalid[i]).join(', ')+': reference optical stiffness exceeds the measured total stiffness. Check the reference optical settings and measured frequencies.');
+ if(calc.result.some(r=>r.unstable))errors.push(state.model==='pseudo'?'A mode has negative total squared frequency (no local harmonic confinement).':'At least one mode is in an RF Floquet instability band.');
+ if(o.sizeParameter>.3)limits.push('Rayleigh/dipole approximation may be inaccurate (2πr/λ = '+fmt(o.sizeParameter,2)+').');
+ if(effNA>.6)limits.push('The focus is tight: λ/(πw₀) ≈ '+fmt(effNA,2)+'. Scalar Gaussian optics may be inaccurate; consider a vector-focus model.');
+ if(Math.abs(state.focus)>1e-5)technical.push('The particle is specified away from the beam focus. The local curvature is evaluated there; the displaced mechanical equilibrium is not solved.');
+ if(o.axialK<0)technical.push('At this position, the optical axial spring is negative (anti-restoring). This is not by itself total-trap instability.');
+ if(state.inputMode==='inverse')technical.push('Inverse separation uses the secular squared-frequency approximation. The inferred Paul component depends on reference power, beam size, particle polarizability and alignment.');
+ if(tp.qmax>.4)technical.push('Reconstructed Mathieu |q| ≈ '+fmt(tp.qmax,3)+'. The leading-order secular approximation can be inaccurate at this size; it does not alone imply instability.');
+ if(state.model==='floquet')technical.push('Floquet quasifrequencies fold into [0, fRF/2]. A folded value is not necessarily the unique observed motional frequency.');
+ if(state.model==='floquet'){
+  const exact0=frequencies({...state,enabled:false});
+  const err=exact0.result.map((r,i)=>r.f===null||calc.base[i]===null?NaN:100*(r.f/calc.base[i]-1));
+  const good=err.filter(Number.isFinite);
+  if(good.length&&Math.max(...good.map(Math.abs))>1)technical.push('Mathieu coefficients are only reconstructed to leading order from the input secular frequencies; the RF-only Floquet check may differ.');
+ }
+ technical.push('Reconstructed ideal quadrupole: Σq = '+fmt(tp.q.reduce((a,b)=>a+b,0),5)+'; Σa = '+fmt(tp.aSum,5)+'. These are model constraints, not measured electrode properties.');
+ const severity=errors.length?'error':limits.length?'limit':'ok';
+ const title=errors.length?'Input / stability problem':limits.length?'Model limitations to consider':'No instability detected in this model';
+ const caption=errors.length?errors[0]:limits.length?limits.join(' '):'Frequency separation is a model-based estimate, not an independent measurement of both springs.';
+ const old=$('checkDetails'),wasOpen=Boolean(old&&old.open);
+ const all=[...errors.slice(1),...limits.filter(x=>x!==caption),...technical];
+ $('warnings').innerHTML=`<div class="validation-summary">${title}</div><p class="${errors.length?'bad':''}">${caption}</p><details class="validity-detail" id="checkDetails" ${wasOpen?'open':''}><summary>Technical assumptions & checks (${all.length})</summary><ul>${all.map(x=>`<li>${x}</li>`).join('')}</ul><div class="model-stat">Reconstructed q = (${tp.q.map(x=>fmt(x,3)).join(', ')}); a = (${tp.a.map(x=>fmt(x,4)).join(', ')})</div></details>`;
+ $('validationTag').textContent=severity==='error'?'CHECK INPUT':severity==='limit'?'APPROXIMATE':'MODEL ESTIMATE';
+ $('validationTag').className='pill'+(severity!=='ok'?' warn':' off');
+ $('rayleighPill').textContent=o.sizeParameter>.3?'RAYLEIGH WARNING':'DIPOLE';
+ $('rayleighPill').className='pill'+(o.sizeParameter>.3?' warn':' off');
+}
+function samples(kind){
+ const n=84,out=[];let lo,hi,xTitle,geom=state.focusMode==='waist';
+ if(kind==='power'){lo=0;hi=Math.max(state.scanMax,state.power*1.12,0.001);xTitle='Optical power (mW)';}
+ else if(geom){lo=Math.max(.05,Math.min(state.waist,state.refWaist)*.65);hi=Math.max(lo+.3,state.waist*1.8,state.refWaist*1.8);xTitle='Beam waist w₀ (µm)';}
+ else{lo=.1;hi=.95;xTitle='Numerical aperture';}
+ for(let i=0;i<=n;i++){
+  const x=lo+(hi-lo)*i/n;let local={...state};
+  if(kind==='power')local.power=x;else if(geom)local.waist=x;else local.NA=x;
+  out.push({x,values:frequencies(local).result.map(v=>v.f)});
+ }
+ return {points:out,lo,hi,xTitle,kind,cursor:kind==='power'?state.power:geom?state.waist:state.NA,geometryMode:geom?'waist':'na'};
+}
+function mkPath(pts,idx,X,Y){let text='',active=false;for(const p of pts){const val=p.values[idx];if(val===null||!Number.isFinite(val)){active=false;continue}text+=(active?'L':'M')+X(p.x).toFixed(2)+' '+Y(val).toFixed(2)+' ';active=true}return text.trim();}
+function makeChart(kind){
+ const data=samples(kind),pts=data.points;
+ const W=600,H=312,L=65,R=13,T=18,B=46;
+ const valid=pts.flatMap(p=>p.values.filter(v=>v!==null&&Number.isFinite(v)));
+ const base=decomposition(state).base.filter(v=>v!==null);
+ let ymin=Math.min(...valid,...base,0),ymax=Math.max(...valid,...base,1);
+ if(ymax-ymin<50){ymin=Math.max(0,ymin-500);ymax+=500}else{const margin=(ymax-ymin)*.11;ymin=Math.max(0,ymin-margin);ymax+=margin}
+ const X=x=>L+(x-data.lo)/(data.hi-data.lo)*(W-L-R),Y=y=>T+(ymax-y)/(ymax-ymin)*(H-T-B);
+ let html=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Frequency versus ${data.xTitle}" xmlns="http://www.w3.org/2000/svg"><rect width="${W}" height="${H}" fill="transparent"/>`;
+ for(let i=0;i<=5;i++){
+  const value=ymin+(ymax-ymin)*i/5,py=Y(value);
+  html+=`<line x1="${L}" y1="${py}" x2="${W-R}" y2="${py}" stroke="#27384b" stroke-width="1"/><text x="${L-11}" y="${py+4}" fill="#8b9fba" text-anchor="end" font-size="12">${Math.round(value).toLocaleString('en-US')}</text>`;
+ }
+ for(let i=0;i<=5;i++){
+  const value=data.lo+(data.hi-data.lo)*i/5,px=X(value);
+  html+=`<line x1="${px}" y1="${T}" x2="${px}" y2="${H-B}" stroke="#263549" stroke-width="1"/><text x="${px}" y="${H-B+19}" fill="#8b9fba" text-anchor="middle" font-size="12">${kind==='power'?fmt(value,Math.abs(value)<1?3:1):fmt(value,2)}</text>`;
+ }
+ html+=`<text x="${(L+W-R)/2}" y="${H-4}" fill="#a4b4ca" text-anchor="middle" font-size="12">${data.xTitle}</text><text x="17" y="${H/2}" fill="#a4b4ca" text-anchor="middle" font-size="12" transform="rotate(-90 17 ${H/2})">Frequency (Hz)</text>`;
+ decomposition(state).base.forEach((v,i)=>{if(v===null)return;const yy=Y(v);html+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="${colors[i]}" stroke-width="1" stroke-opacity=".19" stroke-dasharray="4 7"/>`});
+ if(data.cursor>=data.lo&&data.cursor<=data.hi){const xx=X(data.cursor);html+=`<line x1="${xx}" y1="${T}" x2="${xx}" y2="${H-B}" stroke="#e8f4ff" stroke-opacity=".58" stroke-dasharray="3 5" stroke-width="1.5"/>`}
+ pts[0]&&keys.forEach((k,i)=>html+=`<path d="${mkPath(pts,i,X,Y)}" fill="none" stroke="${colors[i]}" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>`);
+ if(data.cursor>=data.lo&&data.cursor<=data.hi){const nearest=pts[Math.max(0,Math.min(pts.length-1,Math.round((data.cursor-data.lo)/(data.hi-data.lo)*(pts.length-1))))];nearest.values.forEach((v,i)=>{if(v!==null){html+=`<circle cx="${X(data.cursor)}" cy="${Y(v)}" r="4" stroke="${colors[i]}" stroke-width="2" fill="#111b2c"/>`}})}
+ html+=`<rect x="${L}" y="${T}" width="${W-L-R}" height="${H-T-B}" fill="transparent" class="hover-area"/><line class="hover-guide" x1="${L}" x2="${L}" y1="${T}" y2="${H-B}" stroke="#d1e4ff" stroke-opacity=".55" stroke-dasharray="3 3" style="display:none"/></svg><div class="plot-tip"></div>`;
+ const container=$(kind==='power'?'powerPlot':'naPlot');container.innerHTML=html;
+ const area=container.querySelector('.hover-area'),guide=container.querySelector('.hover-guide'),tip=container.querySelector('.plot-tip');
+ area.addEventListener('pointermove',e=>{const box=area.getBoundingClientRect();const at=clamp((e.clientX-box.left)/box.width,0,1);const point=pts[Math.round(at*(pts.length-1))];guide.style.display='';guide.setAttribute('x1',X(point.x));guide.setAttribute('x2',X(point.x));tip.style.display='block';tip.innerHTML=`<strong>${kind==='power'?'Power: '+fmt(point.x,3)+' mW':state.focusMode==='waist'?'Waist: '+fmt(point.x,3)+' µm':'NA: '+fmt(point.x,3)}</strong><br>`+point.values.map((v,i)=>`<span style="color:${colors[i]}">${keys[i]}: ${v===null?'UNSTABLE':fmt(v,1)+' Hz'}</span>`).join('<br>');tip.style.left=clamp((e.clientX-container.getBoundingClientRect().left)+15,10,container.clientWidth-tip.offsetWidth-4)+'px';tip.style.top=clamp((e.clientY-container.getBoundingClientRect().top)-tip.offsetHeight-12,4,container.clientHeight-tip.offsetHeight-2)+'px'});
+ area.addEventListener('pointerleave',()=>{guide.style.display='none';tip.style.display='none'});
+ chartRecords[kind]={data,svg:container.querySelector('svg').outerHTML};
+}
+function render(){state=validate(state);syncControls();const calc=frequencies(state);drawMetrics(calc);drawBreakdown(calc);makeChart('power');makeChart('na');drawDepth();diagnostics(calc)}
+function changeNumber(key,value){const n=Number(value);if(!Number.isFinite(n))return;state[key]=n;render()}
+document.querySelectorAll('input[data-key],select[data-key]').forEach(el=>{el.addEventListener(el.type==='range'||el.tagName==='SELECT'?'input':'change',()=>{let v=el.value;if(el.type==='number')v=Number(v);const key=el.dataset.key;const sourceKey=['fX','fY','fZ'].includes(key)&&state.inputMode==='inverse'?'fH'+key.slice(-1):key;state[sourceKey]=v;render()})});
+$('tweezerEnabled').addEventListener('change',e=>{state.enabled=e.target.checked;render()});
+$('powerInput').addEventListener('change',e=>changeNumber('power',e.target.value));
+$('powerLog').addEventListener('input',e=>{state.power=positionToPower(Number(e.target.value));render()});
+$('naInput').addEventListener('change',e=>changeNumber('NA',e.target.value));
+$('naRange').addEventListener('input',e=>{state.NA=Number(e.target.value);render()});
+$('waistInput').addEventListener('change',e=>changeNumber('waist',e.target.value));
+$('waistRange').addEventListener('input',e=>{state.waist=Number(e.target.value);render()});
+function changeFocusMode(next){
+ if(next===state.focusMode)return;
+ // Match BOTH live and reference Gaussian waist during the switch.
+ if(next==='waist'){
+  state.waist=optics({...state,enabled:true,power:state.power}).w0*1e6;
+  state.refWaist=optics({...state,enabled:true,power:state.refPower,NA:state.refNA}).w0*1e6;
+ }else{
+  const convert=w=>state.waistFactor*(state.lambda*1e-3)/(Math.PI*w);
+  state.NA=clamp(convert(state.waist),.03,.99);
+  state.refNA=clamp(convert(state.refWaist),.03,.99);
+ }
+ state.focusMode=next;render();
+}
+$('btnNA').onclick=()=>changeFocusMode('na');
+$('btnWaist').onclick=()=>changeFocusMode('waist');
+$('btnPseudo').onclick=()=>{state.model='pseudo';render()};$('btnFloquet').onclick=()=>{state.model='floquet';render()};
+$('btnForward').onclick=()=>{state.inputMode='forward';render()};
+$('btnInverse').onclick=()=>{if(!state.inversePrimed){const original=state.model;const prediction=frequencies({...state,inputMode:'forward',model:'pseudo'});for(let i=0;i<3;i++)state['fH'+keys[i]]=prediction.result[i].f??state['f'+keys[i]];state.refPower=state.power;state.refNA=state.NA;state.refWaist=state.waist;state.inversePrimed=true;}state.inputMode='inverse';render()};
+$('captureReference').onclick=()=>{state.refPower=state.power;state.refNA=state.NA;state.refWaist=state.waist;render()};
+$('resetBtn').onclick=()=>{state={...DEFAULTS};render()};
+function download(file,contents,mime){const blob=new Blob([contents],{type:mime}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=file;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+$('exportJSON').onclick=()=>download('hybrid_trap_settings.json',JSON.stringify({version:4,...readState()},null,2),'application/json');
+$('exportDecomposition').onclick=()=>{
+ const d=frequencies(state),ref=d.refOp;
+ const rows=['axis,input_mode,beam_focus_mode,measured_reference_hybrid_Hz,reference_power_mW,reference_NA,reference_waist_um,reference_effective_waist_um,paul_inferred_Hz,optical_reference_f_squared_Hz2,optical_reference_equivalent_signed_Hz,live_power_mW,live_NA,live_waist_um,live_effective_waist_um,tweezer_enabled,optical_live_f_squared_Hz2,hybrid_live_Hz'];
+ const fmtCSV=v=>v===null||v===undefined||!Number.isFinite(v)?'':Number(v).toPrecision(12);
+ keys.forEach((axis,i)=>{
+  const opticalRef=ref.delta[i];
+  rows.push([axis,state.inputMode,state.focusMode,fmtCSV(d.measured[i]),fmtCSV(state.refPower),fmtCSV(state.refNA),fmtCSV(state.refWaist),fmtCSV(ref.w0*1e6),fmtCSV(d.base[i]),fmtCSV(opticalRef),fmtCSV(Math.sign(opticalRef)*Math.sqrt(Math.abs(opticalRef))),fmtCSV(state.power),fmtCSV(state.NA),fmtCSV(state.waist),fmtCSV(d.op.w0*1e6),state.enabled?'true':'false',fmtCSV(d.op.delta[i]),fmtCSV(d.result[i].f)].join(','));
+ });
+ download('paul_tweezer_frequency_decomposition.csv',rows.join('\n')+'\n','text/csv');
+};
+$('loadJSON').onclick=()=>$('loadFile').click();
+$('loadFile').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{const obj=JSON.parse(await file.text());const next={...DEFAULTS};for(const key of Object.keys(DEFAULTS)){if(Object.hasOwn(obj,key)&&typeof obj[key]===typeof DEFAULTS[key])next[key]=obj[key]}if(!['X','Y','Z'].includes(next.axis))next.axis='Z';if(!['pseudo','floquet'].includes(next.model))next.model='pseudo';if(!['forward','inverse'].includes(next.inputMode))next.inputMode='forward';// Version 2 did not store explicitly known live/reference waists.
+if(!Object.hasOwn(obj,'waist'))next.waist=next.waistFactor*next.lambda*1e-3/(Math.PI*next.NA);
+if(!Object.hasOwn(obj,'refWaist'))next.refWaist=next.waistFactor*next.lambda*1e-3/(Math.PI*next.refNA);
+state=next;render()}catch(err){alert('Settings could not be imported: '+err.message)}e.target.value=''});
+document.querySelectorAll('[data-depth-export]').forEach(btn=>btn.onclick=()=>{
+ const [kind,format]=btn.dataset.depthExport.split(':'),r=chartRecords[kind];if(!r)return;
+ if(format==='svg')download('optical_'+kind+'.svg',r.svg,'image/svg+xml');
+ else{
+  const header=kind==='depthPower'?'power_mW,radial_depth_K,axial_depth_K,available_from_particle_K':'displacement_um,potential_above_focus_min_K';
+  const body=r.data.points.map(row=>kind==='depthPower'?[row.x,row.radial,row.axial,row.available].map(x=>x.toPrecision(12)).join(','):[row.x,row.value].map(x=>x.toPrecision(12)).join(','));
+  download('optical_'+kind+'.csv',[header,...body].join('\n')+'\n','text/csv');
+ }
+});
+document.querySelectorAll('[data-export]').forEach(btn=>btn.onclick=()=>{const [kind,format]=btn.dataset.export.split(':'),r=chartRecords[kind];if(!r)return;
+ if(format==='svg')download('frequency_vs_'+(kind==='power'?'power':r.data.geometryMode==='waist'?'waist':'NA')+'.svg',r.svg,'image/svg+xml');
+ else{const header=(kind==='power'?'power_mW':r.data.geometryMode==='waist'?'waist_um':'NA')+',f_X_Hz,f_Y_Hz,f_Z_Hz\n';const rows=r.data.points.map(p=>p.x.toPrecision(10)+','+p.values.map(v=>v===null?'':v.toPrecision(12)).join(',')).join('\n');download('frequency_vs_'+(kind==='power'?'power':r.data.geometryMode==='waist'?'waist':'NA')+'.csv',header+rows+'\n','text/csv')}
+});
+render();
+</script>
+</body>
+</html>
