@@ -12,6 +12,19 @@ At each operating point solve the monotonic equation
 
 There is no heat conduction to a support: the particle is levitated. No laser-induced fluorescence/cooling or internal defect kinetics is modeled. Measured beam *power at the particle* is required (not laser-diode electrical power). The thermometric inversion requires an **independent internal-temperature** measurement, e.g. calibrated NV zero-field splitting or Raman thermometry.
 
+### User-entered bulk absorption coefficient
+
+Both illumination channels accept either the **bulk intensity-attenuation coefficient** `alpha` (in cm^-1 or m^-1) or the imaginary refractive index `k`, at that channel's vacuum wavelength. They are related by
+
+\[
+\alpha_{\rm bulk}[\mathrm{m}^{-1}] = \frac{4\pi k}{\lambda[\mathrm{m}]},
+\qquad k = \frac{\alpha_{\rm bulk}\lambda}{4\pi}.
+\]
+
+`alpha` is defined by **bulk intensity** `I(z) = I(0) exp(-alpha*z)`, not field-amplitude attenuation, absorbed fraction of the incident beam, a nanodiamond-specific cross-section, or infrared emission loss. It is converted to `k` and then the original Rayleigh-sphere local-field correction is used to obtain `C_abs`. The code does **not** approximate the nanodiamond absorbed fraction as `1-exp(-alpha*2R)`.
+
+Selecting a different unit does not alter the represented absorption. Changing wavelength while holding alpha fixed changes the corresponding `k`; changing wavelength while holding `k` fixed changes the equivalent alpha. Saved JSON profiles include the input mode and units as well as both derived numeric representations, and the loader remains compatible with original v1 JSON files containing only `k`. CSV exports include the current absorption values in cm^-1 and `k`.
+
 ### Optical absorption, Rayleigh approximation
 
 For a sphere with radius `R`, laser wavelength `lambda`, complex refractive index `m = n + ik`, homogeneous surrounding index ~1,
